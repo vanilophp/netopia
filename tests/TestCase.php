@@ -13,8 +13,8 @@ namespace Vanilo\Netopia\Tests;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Konekt\Concord\ConcordServiceProvider;
-use Vanilo\Netopia\Providers\ModuleServiceProvider as NetopiaModule;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Vanilo\Netopia\Providers\ModuleServiceProvider as NetopiaModule;
 use Vanilo\Payment\Providers\ModuleServiceProvider as PaymentModule;
 
 abstract class TestCase extends Orchestra
