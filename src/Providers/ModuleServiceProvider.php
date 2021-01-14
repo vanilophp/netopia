@@ -29,7 +29,12 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
         }
 
         $this->app->bind(NetopiaPaymentGateway::class, function ($app) {
-            return new NetopiaPaymentGateway($this->config('unique_key'));
+            return new NetopiaPaymentGateway(
+                $this->config('signature'),
+                $this->config('public_certificate_path'),
+                $this->config('private_certificate_path'),
+                $this->config('sandbox')
+            );
         });
     }
 }
