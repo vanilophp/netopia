@@ -15,6 +15,9 @@
     </testsuite>
   </testsuites>
   <php>
-    <env name="NETOPIA_XXX" value="YYYY"/>
+    <env name="NETOPIA_SIGNATURE" value="XXXX-YYYY-ZZZZ"/>
+    <env name="NETOPIA_PUBLIC_CERTIFICATE_PATH" value="/home/test"/>
+    <env name="NETOPIA_PRIVATE_CERTIFICATE_PATH" value="/home/test"/>
+    <env name="NETOPIA_SANDBOX" value="true"/>
   </php>
 </phpunit>

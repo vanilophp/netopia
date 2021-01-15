@@ -1,17 +1,7 @@
 <?php
-/**
- * Contains the base TestCase class.
- *
- * @copyright   Copyright (c) 2021 Attila Fulop
- * @author      Attila Fulop
- * @license     MIT
- * @since       2021-01-13
- *
- */
 
 namespace Vanilo\Netopia\Tests;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Konekt\Concord\ConcordServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Vanilo\Netopia\Providers\ModuleServiceProvider as NetopiaModule;
@@ -24,6 +14,17 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         $this->setUpDatabase($this->app);
+    }
+
+    /**
+     * Set up the database.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     */
+    protected function setUpDatabase($app)
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        \Artisan::call('migrate', ['--force' => true]);
     }
 
     /**
@@ -51,17 +52,6 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix'   => '',
         ]);
-    }
-
-    /**
-     * Set up the database.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function setUpDatabase($app)
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-        \Artisan::call('migrate', ['--force' => true]);
     }
 
     /**

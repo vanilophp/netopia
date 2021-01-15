@@ -1,19 +1,10 @@
 <?php
-/**
- * Contains the AAASmokeTest class.
- *
- * @copyright   Copyright (c) 2021 Attila Fulop
- * @author      Attila Fulop
- * @license     MIT
- * @since       2021-01-13
- *
- */
 
 namespace Vanilo\Netopia\Tests;
 
 class AAASmokeTest extends TestCase
 {
-    public const MIN_PHP_VERSION = '7.4.0';
+    public const MIN_PHP_VERSION = '7.3.0';
 
     /**
      * @test

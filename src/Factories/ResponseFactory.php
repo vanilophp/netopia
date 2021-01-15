@@ -37,7 +37,7 @@ class ResponseFactory
         $srcData   = base64_decode($request->get('data'));
         $srcEnvKey = base64_decode($request->get('env_key'));
         $data      = null;
-        openssl_open($srcData, $data, $srcEnvKey, $key);
+        openssl_open($srcData, $data, $srcEnvKey, $key, 'RC4');
 
         return simplexml_load_string($data);
     }

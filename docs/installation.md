@@ -16,6 +16,16 @@
     ]; 
     ```
 
+The following `.env` parameters must be set in order to work with this package.
+These credentials can be get from the Netopia admin panel.
+
+```dotenv
+NETOPIA_SIGNATURE=xxxx-yyyyy-zzzz
+NETOPIA_PUBLIC_CERTIFICATE_PATH=/home/test/public
+NETOPIA_PRIVATE_CERTIFICATE_PATH=/home/test/private
+NETOPIA_SANDBOX=true/false
+```
+
 ## Registration with Payments Module
 
 The module will register the payment gateway with the Vanilo Payments registry by default.

@@ -32,7 +32,7 @@ class NetopiaPaymentRequest implements PaymentRequest
 
     private string $email;
 
-    private string $phone;
+    private ?string $phone;
 
     private string $address;
 
@@ -196,7 +196,7 @@ class NetopiaPaymentRequest implements PaymentRequest
         return $this;
     }
 
-    public function setPhone(string $phone): NetopiaPaymentRequest
+    public function setPhone(?string $phone): NetopiaPaymentRequest
     {
         $this->phone = $phone;
 
