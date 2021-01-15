@@ -42,7 +42,8 @@ class NetopiaPaymentRequest implements PaymentRequest
 
     public function getHtmlSnippet(array $options = []): ?string
     {
-        return View::make('netopia::_request',
+        return View::make(
+            'netopia::_request',
             array_merge(
                 $this->encryptData(),
                 [

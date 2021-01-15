@@ -19,8 +19,7 @@ class SomeBillPayer implements Billpayer
         string $email = 'someone@example.org',
         string $firstname = 'Giovanni',
         string $lastname = 'Gatto'
-    )
-    {
+    ) {
         $this->email     = $email;
         $this->firstname = $firstname;
         $this->lastname  = $lastname;

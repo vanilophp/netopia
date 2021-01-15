@@ -41,6 +41,5 @@ class ResponseFactoryTest extends TestCase
             'data'    => base64_encode($encData),
             'env_key' => base64_encode($envKeys[0])
         ];
-
     }
 }
