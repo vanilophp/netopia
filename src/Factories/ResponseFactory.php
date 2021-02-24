@@ -4,6 +4,8 @@ namespace Vanilo\Netopia\Factories;
 
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
+use Vanilo\Netopia\Exceptions\MalformedNetopiaResponse;
 use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
 
 class ResponseFactory
@@ -25,13 +27,12 @@ class ResponseFactory
     private static function decrypt(Request $request, string $privateCertificatePath): SimpleXMLElement
     {
         if (!$request->has('env_key') || !$request->has('data')) {
-            throw new \Error('Netopia posted invalid parameters');
+            throw MalformedNetopiaResponse::create();
         }
 
         $key = openssl_get_privatekey("file://{$privateCertificatePath}");
-
-        if (!$key) {
-            throw new \Error("The public following private key path '{$privateCertificatePath}' is invalid");
+        if (false === $key) {
+            throw InvalidNetopiaKeyException::fromPath($privateCertificatePath);
         }
 
         $srcData   = base64_decode($request->get('data'));

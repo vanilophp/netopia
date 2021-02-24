@@ -17,10 +17,10 @@
     ```
 
 The following `.env` parameters must be set in order to work with this package.
-These credentials can be get from the Netopia admin panel.
+These credentials can be obtained from the Netopia admin panel.
 
 ```dotenv
-NETOPIA_SIGNATURE=xxxx-yyyyy-zzzz
+NETOPIA_SIGNATURE=XXXX-YYYYY-ZZZZ
 NETOPIA_PUBLIC_CERTIFICATE_PATH=/home/test/public
 NETOPIA_PRIVATE_CERTIFICATE_PATH=/home/test/private
 NETOPIA_SANDBOX=true/false
@@ -60,6 +60,20 @@ use Vanilo\Netopia\NetopiaPaymentGateway;
 use Vanilo\Payment\PaymentGateways;
 
 PaymentGateways::register('gateway-id', NetopiaPaymentGateway::class);
+```
+
+In manual registration mode the class doesn't get bound with the Laravel DI container.
+Therefore, you also have to do the binding manually:
+
+```php
+$this->app->bind(NetopiaPaymentGateway::class, function ($app) {
+    return new NetopiaPaymentGateway(
+        $this->config('signature'), // You can use different source than config
+        $this->config('public_certificate_path'), // for these parameters
+        $this->config('private_certificate_path'),
+        $this->config('sandbox')
+    );
+});
 ```
 
 ---
