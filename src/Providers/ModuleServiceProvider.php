@@ -26,15 +26,15 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
                 $this->config('gateway.id', NetopiaPaymentGateway::DEFAULT_ID),
                 NetopiaPaymentGateway::class
             );
-        }
 
-        $this->app->bind(NetopiaPaymentGateway::class, function ($app) {
-            return new NetopiaPaymentGateway(
-                $this->config('signature'),
-                $this->config('public_certificate_path'),
-                $this->config('private_certificate_path'),
-                $this->config('sandbox')
-            );
-        });
+            $this->app->bind(NetopiaPaymentGateway::class, function ($app) {
+                return new NetopiaPaymentGateway(
+                    $this->config('signature'),
+                    $this->config('public_certificate_path'),
+                    $this->config('private_certificate_path'),
+                    $this->config('sandbox')
+                );
+            });
+        }
     }
 }
