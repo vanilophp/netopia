@@ -57,69 +57,6 @@ class NetopiaPaymentRequest implements PaymentRequest
         )->render();
     }
 
-    private function encryptData(): array
-    {
-        $publicKey = openssl_pkey_get_public("file://{$this->publicCertificatePath}");
-
-        if (!$publicKey) {
-            throw InvalidNetopiaKeyException::fromPath($this->publicCertificatePath);
-        }
-
-        $encData = null;
-        $envKeys = null;
-        $publicKey = [$publicKey];
-
-        openssl_seal($this->getXml(), $encData, $envKeys, $publicKey, 'RC4');
-
-        return [
-            'data' => base64_encode($encData),
-            'envKey' => base64_encode($envKeys[0])
-        ];
-    }
-
-    private function getXml(): string
-    {
-        $xml = new DOMDocument('1.0', 'utf-8');
-
-        $orderNode = $xml->createElement('order');
-        $orderNode->setAttribute('type', 'card');
-        $orderNode->setAttribute('id', $this->paymentId);
-        $orderNode->setAttribute('timestamp', $this->timestamp);
-        $xml->appendChild($orderNode);
-
-        $orderNode->appendChild($xml->createElement('signature', $this->signature));
-
-        $invoiceNode = $xml->createElement('invoice');
-        $invoiceNode->setAttribute('currency', $this->currency);
-        $invoiceNode->setAttribute('amount', $this->amount);
-
-        $invoiceNode->appendChild($xml->createElement('details', $this->details));
-
-        $contactNode = $xml->createElement('contact_info');
-
-        $billingNode = $xml->createElement('billing');
-        $billingNode->setAttribute('type', $this->billingType);
-
-        $billingNode->appendChild($xml->createElement('first_name', $this->firstName));
-        $billingNode->appendChild($xml->createElement('last_name', $this->lastName));
-        $billingNode->appendChild($xml->createElement('email', $this->email));
-        $billingNode->appendChild($xml->createElement('address', $this->address));
-        $billingNode->appendChild($xml->createElement('mobile_phone', $this->phone));
-
-        $contactNode->appendChild($billingNode);
-        $invoiceNode->appendChild($contactNode);
-        $orderNode->appendChild($invoiceNode);
-
-        $urlNode = $xml->createElement('url');
-
-        $urlNode->appendChild($xml->createElement('confirm', $this->confirmUrl));
-        $urlNode->appendChild($xml->createElement('return', $this->returnUrl));
-
-        $orderNode->appendChild($urlNode);
-
-        return $xml->saveHTML();
-    }
-
     public function getUrl()
     {
         return $this->isSandbox ? 'http://sandboxsecure.mobilpay.ro' : 'https://secure.mobilpay.ro';
@@ -240,5 +177,68 @@ class NetopiaPaymentRequest implements PaymentRequest
         $this->isSandbox = $isSandbox;
 
         return $this;
+    }
+
+    private function encryptData(): array
+    {
+        $publicKey = openssl_pkey_get_public("file://{$this->publicCertificatePath}");
+
+        if (!$publicKey) {
+            throw InvalidNetopiaKeyException::fromPath($this->publicCertificatePath);
+        }
+
+        $encData = null;
+        $envKeys = null;
+        $publicKey = [$publicKey];
+
+        openssl_seal($this->getXml(), $encData, $envKeys, $publicKey, 'RC4');
+
+        return [
+            'data' => base64_encode($encData),
+            'envKey' => base64_encode($envKeys[0])
+        ];
+    }
+
+    private function getXml(): string
+    {
+        $xml = new DOMDocument('1.0', 'utf-8');
+
+        $orderNode = $xml->createElement('order');
+        $orderNode->setAttribute('type', 'card');
+        $orderNode->setAttribute('id', $this->paymentId);
+        $orderNode->setAttribute('timestamp', $this->timestamp);
+        $xml->appendChild($orderNode);
+
+        $orderNode->appendChild($xml->createElement('signature', $this->signature));
+
+        $invoiceNode = $xml->createElement('invoice');
+        $invoiceNode->setAttribute('currency', $this->currency);
+        $invoiceNode->setAttribute('amount', $this->amount);
+
+        $invoiceNode->appendChild($xml->createElement('details', $this->details));
+
+        $contactNode = $xml->createElement('contact_info');
+
+        $billingNode = $xml->createElement('billing');
+        $billingNode->setAttribute('type', $this->billingType);
+
+        $billingNode->appendChild($xml->createElement('first_name', $this->firstName));
+        $billingNode->appendChild($xml->createElement('last_name', $this->lastName));
+        $billingNode->appendChild($xml->createElement('email', $this->email));
+        $billingNode->appendChild($xml->createElement('address', $this->address));
+        $billingNode->appendChild($xml->createElement('mobile_phone', $this->phone));
+
+        $contactNode->appendChild($billingNode);
+        $invoiceNode->appendChild($contactNode);
+        $orderNode->appendChild($invoiceNode);
+
+        $urlNode = $xml->createElement('url');
+
+        $urlNode->appendChild($xml->createElement('confirm', $this->confirmUrl));
+        $urlNode->appendChild($xml->createElement('return', $this->returnUrl));
+
+        $orderNode->appendChild($urlNode);
+
+        return $xml->saveHTML();
     }
 }
