@@ -28,5 +28,4 @@ enabled:
   - standardize_not_equals
   - unalign_equals
   - unalign_double_arrow
-  - uppercase_constants
   - yoda_style
