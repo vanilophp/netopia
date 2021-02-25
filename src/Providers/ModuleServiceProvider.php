@@ -34,7 +34,9 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
                     $this->config('signature'),
                     $this->config('public_certificate_path'),
                     $this->config('private_certificate_path'),
-                    $this->config('sandbox')
+                    $this->config('sandbox'),
+                    $this->config('return_url'),
+                    $this->config('confirm_url'),
                 );
             });
         }

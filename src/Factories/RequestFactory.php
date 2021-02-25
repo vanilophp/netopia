@@ -4,32 +4,37 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Factories;
 
+use Vanilo\Netopia\Concerns\InteractsWithNetopia;
 use Vanilo\Netopia\Messages\NetopiaPaymentRequest;
 use Vanilo\Payment\Contracts\Payment;
 
-class RequestFactory
+final class RequestFactory
 {
-    public static function create(bool $isSandbox, string $signature, string $publicCertificatePath, Payment $payment, array $options = []): NetopiaPaymentRequest
+    use InteractsWithNetopia;
+
+    public function create(Payment $payment, array $options = []): NetopiaPaymentRequest
     {
-        $result = new NetopiaPaymentRequest();
-        $billingAddress = $payment->getPayable()->getBillPayer();
+        $result = new NetopiaPaymentRequest(
+            $this->signature,
+            $this->publicCertificatePath,
+            $this->privateCertificatePath,
+            $this->isSandbox
+        );
+        $billPayer = $payment->getPayable()->getBillPayer();
 
         $result
-            ->setIsSandbox($isSandbox)
-            ->setSignature($signature)
-            ->setPublicCertificatePath($publicCertificatePath)
             ->setPaymentId($payment->getPaymentId())
             ->setCurrency($payment->getCurrency())
             ->setAmount($payment->getAmount())
             ->setTimestamp(date('YmdHis'))
             ->setDetails($options['description'] ?? __('Order no. :number', ['number' => $payment->getPayable()->getTitle()]))
-            ->setBillingType($billingAddress->isOrganization() ? 'company' : 'person')
-            ->setFirstName($billingAddress->getFirstName())
-            ->setLastName($billingAddress->getLastName())
-            ->setEmail($billingAddress->getEmail())
-            ->setPhone($billingAddress->getPhone())
+            ->setBillingType($billPayer->isOrganization() ? 'company' : 'person')
+            ->setFirstName($billPayer->getFirstName())
+            ->setLastName($billPayer->getLastName())
+            ->setEmail($billPayer->getEmail())
+            ->setPhone($billPayer->getPhone())
             ->setAddress(
-                $billingAddress->getBillingAddress()->getCity() . ' ' . $billingAddress->getBillingAddress()->getAddress()
+                $billPayer->getBillingAddress()->getCity() . ' ' . $billPayer->getBillingAddress()->getAddress()
             )
             ->setConfirmUrl($options['confirm'] ?? '/')
             ->setReturnUrl($options['return'] ?? '/');

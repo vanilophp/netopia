@@ -6,15 +6,14 @@ namespace Vanilo\Netopia\Concerns;
 
 trait InteractsWithNetopia
 {
-    private string $signature;
+    use HasNetopiaConfig;
 
-    private string $publicCertificatePath;
-
-    private string $privateCertificatePath;
-
-    private bool $isSandbox;
-
-    public function __construct(string $signature, string $publicCertificatePath, string $privateCertificatePath, bool $isSandbox)
+    public function __construct(
+        string $signature,
+        string $publicCertificatePath,
+        string $privateCertificatePath,
+        bool $isSandbox = false
+    )
     {
         $this->signature = $signature;
         $this->publicCertificatePath = $publicCertificatePath;

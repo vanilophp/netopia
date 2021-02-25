@@ -10,7 +10,7 @@ use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
 use Vanilo\Netopia\Exceptions\MalformedNetopiaResponse;
 use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
 
-class ResponseFactory
+final class ResponseFactory
 {
     public static function create(Request $request, string $privateCertificatePath): NetopiaPaymentResponse
     {

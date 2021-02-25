@@ -6,20 +6,17 @@ namespace Vanilo\Netopia\Messages;
 
 use DOMDocument;
 use Illuminate\Support\Facades\View;
+use Vanilo\Netopia\Concerns\InteractsWithNetopia;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
 use Vanilo\Payment\Contracts\PaymentRequest;
 
 class NetopiaPaymentRequest implements PaymentRequest
 {
-    private bool $isSandbox;
+    use InteractsWithNetopia;
 
     private string $paymentId;
 
     private string $timestamp;
-
-    private string $signature;
-
-    private string $publicCertificatePath;
 
     private string $currency;
 
@@ -57,124 +54,98 @@ class NetopiaPaymentRequest implements PaymentRequest
         )->render();
     }
 
-    public function getUrl()
-    {
-        return $this->isSandbox ? 'http://sandboxsecure.mobilpay.ro' : 'https://secure.mobilpay.ro';
-    }
-
     public function willRedirect(): bool
     {
         return true;
     }
 
-    public function setPaymentId(string $paymentId): NetopiaPaymentRequest
+    public function setPaymentId(string $paymentId): self
     {
         $this->paymentId = $paymentId;
 
         return $this;
     }
 
-    public function setTimestamp(string $timestamp): NetopiaPaymentRequest
+    public function setTimestamp(string $timestamp): self
     {
         $this->timestamp = $timestamp;
 
         return $this;
     }
 
-    public function setSignature(string $signature): NetopiaPaymentRequest
-    {
-        $this->signature = $signature;
-
-        return $this;
-    }
-
-    public function setCurrency(string $currency): NetopiaPaymentRequest
+    public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
 
         return $this;
     }
 
-    public function setAmount(float $amount): NetopiaPaymentRequest
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
 
         return $this;
     }
 
-    public function setDetails(string $details): NetopiaPaymentRequest
+    public function setDetails(string $details): self
     {
         $this->details = $details;
 
         return $this;
     }
 
-    public function setBillingType(string $billingType): NetopiaPaymentRequest
+    public function setBillingType(string $billingType): self
     {
         $this->billingType = $billingType;
 
         return $this;
     }
 
-    public function setFirstName(string $firstName): NetopiaPaymentRequest
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function setLastName(string $lastName): NetopiaPaymentRequest
+    public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function setEmail(string $email): NetopiaPaymentRequest
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function setPhone(?string $phone): NetopiaPaymentRequest
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function setAddress(string $address): NetopiaPaymentRequest
+    public function setAddress(string $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    public function setConfirmUrl(string $confirmUrl): NetopiaPaymentRequest
+    public function setConfirmUrl(string $confirmUrl): self
     {
         $this->confirmUrl = $confirmUrl;
 
         return $this;
     }
 
-    public function setReturnUrl(string $returnUrl): NetopiaPaymentRequest
+    public function setReturnUrl(string $returnUrl): self
     {
         $this->returnUrl = $returnUrl;
-
-        return $this;
-    }
-
-    public function setPublicCertificatePath(string $publicCertificatePath): NetopiaPaymentRequest
-    {
-        $this->publicCertificatePath = $publicCertificatePath;
-
-        return $this;
-    }
-
-    public function setIsSandbox(bool $isSandbox): NetopiaPaymentRequest
-    {
-        $this->isSandbox = $isSandbox;
 
         return $this;
     }
@@ -183,7 +154,7 @@ class NetopiaPaymentRequest implements PaymentRequest
     {
         $publicKey = openssl_pkey_get_public("file://{$this->publicCertificatePath}");
 
-        if (!$publicKey) {
+        if (false === $publicKey) {
             throw InvalidNetopiaKeyException::fromPath($this->publicCertificatePath);
         }
 
@@ -240,5 +211,10 @@ class NetopiaPaymentRequest implements PaymentRequest
         $orderNode->appendChild($urlNode);
 
         return $xml->saveHTML();
+    }
+
+    private function getUrl(): string
+    {
+        return $this->isSandbox ? 'http://sandboxsecure.mobilpay.ro' : 'https://secure.mobilpay.ro';
     }
 }
