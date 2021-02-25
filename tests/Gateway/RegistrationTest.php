@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vanilo\Netopia\Tests\Gateway;
 
 use Vanilo\Netopia\NetopiaPaymentGateway;

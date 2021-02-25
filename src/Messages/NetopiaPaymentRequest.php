@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vanilo\Netopia\Messages;
 
 use DOMDocument;
@@ -47,7 +49,7 @@ class NetopiaPaymentRequest implements PaymentRequest
             array_merge(
                 $this->encryptData(),
                 [
-                    'url'          => $this->getUrl(),
+                    'url' => $this->getUrl(),
                     'autoRedirect' => $options['autoRedirect'] ?? false
                 ]
             )
@@ -62,14 +64,14 @@ class NetopiaPaymentRequest implements PaymentRequest
             throw new \Error("The public following public key path '{$this->publicCertificatePath}' is invalid");
         }
 
-        $encData   = null;
-        $envKeys   = null;
-        $publicKey = array($publicKey);
+        $encData = null;
+        $envKeys = null;
+        $publicKey = [$publicKey];
 
         openssl_seal($this->getXml(), $encData, $envKeys, $publicKey, 'RC4');
 
         return [
-            'data'   => base64_encode($encData),
+            'data' => base64_encode($encData),
             'envKey' => base64_encode($envKeys[0])
         ];
     }

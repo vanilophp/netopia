@@ -20,9 +20,9 @@ class SomeBillPayer implements Billpayer
         string $firstname = 'Giovanni',
         string $lastname = 'Gatto'
     ) {
-        $this->email     = $email;
+        $this->email = $email;
         $this->firstname = $firstname;
-        $this->lastname  = $lastname;
+        $this->lastname = $lastname;
     }
 
     public function isEuRegistered(): bool

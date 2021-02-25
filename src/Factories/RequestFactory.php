@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vanilo\Netopia\Factories;
 
 use Vanilo\Netopia\Messages\NetopiaPaymentRequest;
@@ -9,7 +11,7 @@ class RequestFactory
 {
     public static function create(bool $isSandbox, string $signature, string $publicCertificatePath, Payment $payment, array $options = []): NetopiaPaymentRequest
     {
-        $result         = new NetopiaPaymentRequest();
+        $result = new NetopiaPaymentRequest();
         $billingAddress = $payment->getPayable()->getBillPayer();
 
         $result

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vanilo\Netopia\Tests\Factory;
 
 use Illuminate\Http\Request;
@@ -31,14 +33,14 @@ class ResponseFactoryTest extends TestCase
         $xml = '<?xml version="1.0" encoding="utf-8"?><order type="card" id="string64" timestamp="YYYYMMDDHHMMSS">{your_request_XML}<mobilpay timestamp="YYYYMMDDHHMMSS" crc="XXXXX"><action>action_type</action><customer type="person|company"><first_name>first_name</first_name><last_name>last_name</last_name><address>address</address><email>email_address</email><mobile_phone>phone_no</mobile_phone></customer><purchase>mobilPay_purchase_no</purchase><original_amount>XX.XX</original_amount><processed_amount>22</processed_amount><pan_masked>X****YYYY</pan_masked><payment_instrument_id>ZZZZZZZ</payment_instrument_id><token_id>token_identifier</token_id><token_expiration_date>YYYY-MM-DD HH:MM:SS</token_expiration_date><error code="N">error_message</error></mobilpay></order>';
 
         $publicKey = openssl_pkey_get_public(file_get_contents(__DIR__ . '/../keys/server.crt'));
-        $encData   = null;
-        $envKeys   = null;
-        $publicKey = array($publicKey);
+        $encData = null;
+        $envKeys = null;
+        $publicKey = [$publicKey];
 
         openssl_seal($xml, $encData, $envKeys, $publicKey, 'RC4');
 
         return [
-            'data'    => base64_encode($encData),
+            'data' => base64_encode($encData),
             'env_key' => base64_encode($envKeys[0])
         ];
     }

@@ -17,8 +17,8 @@ class SomeOrder implements Payable
 
     public function __construct(float $amount = 99, string $currency = 'EUR')
     {
-        $this->amount    = $amount;
-        $this->currency  = $currency;
+        $this->amount = $amount;
+        $this->currency = $currency;
         $this->billPayer = new SomeBillPayer();
     }
 

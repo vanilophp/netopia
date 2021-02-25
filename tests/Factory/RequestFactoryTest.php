@@ -19,7 +19,7 @@ class RequestFactoryTest extends TestCase
     {
         $method = PaymentMethod::create([
             'gateway' => NetopiaPaymentGateway::getName(),
-            'name'    => 'Netopia',
+            'name' => 'Netopia',
         ]);
 
         $order = Order::create(['currency' => 'RON', 'amount' => 19.99]);

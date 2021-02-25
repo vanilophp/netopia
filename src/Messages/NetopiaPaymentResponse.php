@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vanilo\Netopia\Messages;
 
 use Illuminate\Http\Response;
@@ -28,7 +30,7 @@ class NetopiaPaymentResponse implements PaymentResponse
 
     public function wasSuccessful(): bool
     {
-        return $this->errorCode == 0;
+        return 0 == $this->errorCode;
     }
 
     public function getMessage(): ?string
