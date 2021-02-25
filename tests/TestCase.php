@@ -70,11 +70,11 @@ abstract class TestCase extends Orchestra
 
     protected function defineRoutes($router)
     {
-        $router->get('/throw-validation-error', function() {
+        $router->get('/throw-validation-error', function () {
             throw MalformedNetopiaResponse::create();
         });
 
-        $router->get('/throw-netopia-key-error', function() {
+        $router->get('/throw-netopia-key-error', function () {
             throw InvalidNetopiaKeyException::fromPath('/some/path/server.key');
         });
     }

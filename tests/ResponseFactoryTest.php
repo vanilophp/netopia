@@ -7,7 +7,6 @@ namespace Vanilo\Netopia\Tests;
 use Illuminate\Http\Request;
 use Vanilo\Netopia\Factories\ResponseFactory;
 use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
-use Vanilo\Netopia\Tests\TestCase;
 
 class ResponseFactoryTest extends TestCase
 {

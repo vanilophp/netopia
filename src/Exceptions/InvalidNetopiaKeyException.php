@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Exceptions;
 
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 final class InvalidNetopiaKeyException extends BaseNetopiaHttpException

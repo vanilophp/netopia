@@ -8,7 +8,6 @@ use Vanilo\Netopia\Factories\RequestFactory;
 use Vanilo\Netopia\Messages\NetopiaPaymentRequest;
 use Vanilo\Netopia\NetopiaPaymentGateway;
 use Vanilo\Netopia\Tests\Dummies\Order;
-use Vanilo\Netopia\Tests\TestCase;
 use Vanilo\Payment\Factories\PaymentFactory;
 use Vanilo\Payment\Models\PaymentMethod;
 

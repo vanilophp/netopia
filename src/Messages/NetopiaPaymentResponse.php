@@ -33,8 +33,7 @@ class NetopiaPaymentResponse implements PaymentResponse
         int $errorCode,
         float $processedAmount,
         string $errorMessage = null
-    )
-    {
+    ) {
         $this->paymentId = $paymentId;
         $this->errorCode = $errorCode;
         $this->processedAmount = $processedAmount;
