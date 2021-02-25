@@ -6,6 +6,7 @@ namespace Vanilo\Netopia\Messages;
 
 use DOMDocument;
 use Illuminate\Support\Facades\View;
+use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
 use Vanilo\Payment\Contracts\PaymentRequest;
 
 class NetopiaPaymentRequest implements PaymentRequest
@@ -61,7 +62,7 @@ class NetopiaPaymentRequest implements PaymentRequest
         $publicKey = openssl_pkey_get_public("file://{$this->publicCertificatePath}");
 
         if (!$publicKey) {
-            throw new \Error("The public following public key path '{$this->publicCertificatePath}' is invalid");
+            throw InvalidNetopiaKeyException::fromPath($this->publicCertificatePath);
         }
 
         $encData = null;

@@ -12,5 +12,5 @@ return [
     'signature' => env('NETOPIA_SIGNATURE'),
     'public_certificate_path' => env('NETOPIA_PUBLIC_CERTIFICATE_PATH'),
     'private_certificate_path' => env('NETOPIA_PRIVATE_CERTIFICATE_PATH'),
-    'sandbox' => env('NETOPIA_SANDBOX', false)
+    'sandbox' => (bool) env('NETOPIA_SANDBOX', false)
 ];
