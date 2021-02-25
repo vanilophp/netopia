@@ -40,8 +40,7 @@ class NetopiaPaymentGateway implements PaymentGateway
         bool $isSandbox,
         string $returnUrl,
         string $confirmUrl
-    )
-    {
+    ) {
         $this->signature = $signature;
         $this->publicCertificatePath = $publicCertificatePath;
         $this->privateCertificatePath = $privateCertificatePath;

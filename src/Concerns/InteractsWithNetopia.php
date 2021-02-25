@@ -13,8 +13,7 @@ trait InteractsWithNetopia
         string $publicCertificatePath,
         string $privateCertificatePath,
         bool $isSandbox = false
-    )
-    {
+    ) {
         $this->signature = $signature;
         $this->publicCertificatePath = $publicCertificatePath;
         $this->privateCertificatePath = $privateCertificatePath;
