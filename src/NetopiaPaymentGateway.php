@@ -27,8 +27,6 @@ class NetopiaPaymentGateway implements PaymentGateway
 
     public const DEFAULT_ID = 'netopia';
 
-    private string $uniqueKey;
-
     public static function getName(): string
     {
         return 'Netopia';
