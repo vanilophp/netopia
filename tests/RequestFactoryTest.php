@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanilo\Netopia\Tests\Factory;
+namespace Vanilo\Netopia\Tests;
 
 use Vanilo\Netopia\Factories\RequestFactory;
 use Vanilo\Netopia\Messages\NetopiaPaymentRequest;

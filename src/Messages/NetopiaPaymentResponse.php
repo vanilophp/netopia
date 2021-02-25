@@ -28,9 +28,22 @@ class NetopiaPaymentResponse implements PaymentResponse
      */
     private string $action;
 
+    public function __construct(
+        string $paymentId,
+        int $errorCode,
+        float $processedAmount,
+        string $errorMessage = null
+    )
+    {
+        $this->paymentId = $paymentId;
+        $this->errorCode = $errorCode;
+        $this->processedAmount = $processedAmount;
+        $this->errorMessage = $errorMessage;
+    }
+
     public function wasSuccessful(): bool
     {
-        return 0 == $this->errorCode;
+        return 0 === $this->errorCode;
     }
 
     public function getMessage(): ?string
@@ -40,7 +53,7 @@ class NetopiaPaymentResponse implements PaymentResponse
 
     public function getTransactionId(): ?string
     {
-        die();
+        return $this->paymentId;
     }
 
     public function getAmountPaid(): ?float
@@ -51,41 +64,6 @@ class NetopiaPaymentResponse implements PaymentResponse
     public function getPaymentId(): string
     {
         return $this->paymentId;
-    }
-
-    public function setPaymentId(string $paymentId): self
-    {
-        $this->paymentId = $paymentId;
-
-        return $this;
-    }
-
-    public function setErrorCode(int $errorCode): self
-    {
-        $this->errorCode = $errorCode;
-
-        return $this;
-    }
-
-    public function setErrorMessage(?string $errorMessage): self
-    {
-        $this->errorMessage = $errorMessage;
-
-        return $this;
-    }
-
-    public function setProcessedAmount(float $processedAmount): self
-    {
-        $this->processedAmount = $processedAmount;
-
-        return $this;
-    }
-
-    public function setAction(string $action): self
-    {
-        $this->action = $action;
-
-        return $this;
     }
 
     public function getReplyToNetopia(): Response

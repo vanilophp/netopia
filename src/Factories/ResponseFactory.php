@@ -12,18 +12,16 @@ use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
 
 class ResponseFactory
 {
-    public static function create(Request $request, array $options, string $privateCertificatePath): NetopiaPaymentResponse
+    public static function create(Request $request, string $privateCertificatePath): NetopiaPaymentResponse
     {
-        $data = self::decrypt($request, $privateCertificatePath);
-        $response = new NetopiaPaymentResponse();
+        $xmlResponse = self::decrypt($request, $privateCertificatePath);
 
-        $response
-            ->setProcessedAmount((float) $data->mobilpay->processed_amount[0])
-            ->setAction((string) $data->mobilpay->action[0])
-            ->setPaymentId((string) $data->attributes()->id[0])
-            ->setErrorCode((int) $data->mobilpay->error->attributes()->code[0]);
-
-        return $response;
+        return new NetopiaPaymentResponse(
+            (string) $xmlResponse->attributes()->id[0],
+            (int) $xmlResponse->mobilpay->error->attributes()->code[0],
+            (float) $xmlResponse->mobilpay->processed_amount[0],
+            isset($xmlResponse->mobilpay->error[0]) ? (string) $xmlResponse->mobilpay->error[0] : null,
+        );
     }
 
     private static function decrypt(Request $request, string $privateCertificatePath): SimpleXMLElement

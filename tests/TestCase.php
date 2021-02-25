@@ -6,6 +6,8 @@ namespace Vanilo\Netopia\Tests;
 
 use Konekt\Concord\ConcordServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
+use Vanilo\Netopia\Exceptions\MalformedNetopiaResponse;
 use Vanilo\Netopia\Providers\ModuleServiceProvider as NetopiaModule;
 use Vanilo\Payment\Providers\ModuleServiceProvider as PaymentModule;
 
@@ -56,9 +58,6 @@ abstract class TestCase extends Orchestra
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     protected function resolveApplicationConfiguration($app)
     {
         parent::resolveApplicationConfiguration($app);
@@ -67,5 +66,16 @@ abstract class TestCase extends Orchestra
             PaymentModule::class,
             NetopiaModule::class
         ]);
+    }
+
+    protected function defineRoutes($router)
+    {
+        $router->get('/throw-validation-error', function() {
+            throw MalformedNetopiaResponse::create();
+        });
+
+        $router->get('/throw-netopia-key-error', function() {
+            throw InvalidNetopiaKeyException::fromPath('/some/path/server.key');
+        });
     }
 }

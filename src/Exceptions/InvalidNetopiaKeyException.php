@@ -15,11 +15,15 @@ declare(strict_types=1);
 namespace Vanilo\Netopia\Exceptions;
 
 use RuntimeException;
+use Symfony\Component\HttpFoundation\Response;
 
-final class InvalidNetopiaKeyException extends RuntimeException
+final class InvalidNetopiaKeyException extends BaseNetopiaHttpException
 {
     public static function fromPath(string $path): self
     {
-        return new self("The public key file at `$path` is invalid");
+        return new self(
+            Response::HTTP_INTERNAL_SERVER_ERROR,
+            "The public key file at `$path` is invalid",
+        );
     }
 }
