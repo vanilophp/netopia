@@ -22,9 +22,9 @@ class NetopiaPaymentResponse implements PaymentResponse
     private float $processedAmount;
 
     /**
-     * The action   attempted   by   mobilPay.   Possible   actions   are   “new,paid_pending, confirmed_pending, paid,
-     * confirmed, credit, canceled”. This is not the status of the transaction, as all actions can either fail or
-     * succeed.
+     * The action attempted by Netopia (or MobilPay). The possible actions are below:
+     * - [new, paid_pending, confirmed_pending, paid, confirmed, credit, canceled]
+     * It's not the transaction status since actions can either fail or succeed
      */
     private string $action;
 
@@ -53,35 +53,35 @@ class NetopiaPaymentResponse implements PaymentResponse
         return $this->paymentId;
     }
 
-    public function setPaymentId(string $paymentId): NetopiaPaymentResponse
+    public function setPaymentId(string $paymentId): self
     {
         $this->paymentId = $paymentId;
 
         return $this;
     }
 
-    public function setErrorCode(int $errorCode): NetopiaPaymentResponse
+    public function setErrorCode(int $errorCode): self
     {
         $this->errorCode = $errorCode;
 
         return $this;
     }
 
-    public function setErrorMessage(?string $errorMessage): NetopiaPaymentResponse
+    public function setErrorMessage(?string $errorMessage): self
     {
         $this->errorMessage = $errorMessage;
 
         return $this;
     }
 
-    public function setProcessedAmount(float $processedAmount): NetopiaPaymentResponse
+    public function setProcessedAmount(float $processedAmount): self
     {
         $this->processedAmount = $processedAmount;
 
         return $this;
     }
 
-    public function setAction(string $action): NetopiaPaymentResponse
+    public function setAction(string $action): self
     {
         $this->action = $action;
 

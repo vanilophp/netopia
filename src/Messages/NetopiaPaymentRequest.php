@@ -235,7 +235,7 @@ class NetopiaPaymentRequest implements PaymentRequest
         return $this;
     }
 
-    public function setIsSandbox(string $isSandbox): NetopiaPaymentRequest
+    public function setIsSandbox(bool $isSandbox): NetopiaPaymentRequest
     {
         $this->isSandbox = $isSandbox;
 

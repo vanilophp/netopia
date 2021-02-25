@@ -15,9 +15,7 @@ class ResponseFactoryTest extends TestCase
     public function it_creates_a_response_object()
     {
         $responseData = $this->getEncryptedRespose();
-
         $request = new Request($responseData);
-
         $response = ResponseFactory::create($request, [], __DIR__ . '/../keys/server.key');
 
         $this->assertInstanceOf(

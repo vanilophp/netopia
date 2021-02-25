@@ -19,7 +19,7 @@ class ResponseFactory
 
         $response
             ->setProcessedAmount((float) $data->mobilpay->processed_amount[0])
-            ->setAction($data->mobilpay->action[0])
+            ->setAction((string) $data->mobilpay->action[0])
             ->setPaymentId((string) $data->attributes()->id[0])
             ->setErrorCode((int) $data->mobilpay->error->attributes()->code[0]);
 
