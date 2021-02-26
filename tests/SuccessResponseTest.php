@@ -20,7 +20,6 @@ use Vanilo\Payment\PaymentGateways;
 
 class SuccessResponseTest extends TestCase
 {
-
     /** @test */
     public function it_can_return_a_netopia_compliant_success_message()
     {
@@ -98,5 +97,4 @@ EOT;
             throw InvalidNetopiaKeyException::fromPath('/some/path/server.key');
         });
     }
-
 }

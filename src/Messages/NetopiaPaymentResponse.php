@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Messages;
 
-use Illuminate\Http\Response;
 use Vanilo\Payment\Contracts\PaymentResponse;
 
 class NetopiaPaymentResponse implements PaymentResponse
