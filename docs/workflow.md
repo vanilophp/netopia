@@ -29,6 +29,14 @@ class OrderController
 {!! $paymentRequest->getHtmlSnippet(); !!}
 ```
 
+## Options
+
+### Request Factory
+
+- `confirm_url`
+- `return_url`
+- `description`
+
 ---
 
 **Next**: [Examples &raquo;](examples.md)

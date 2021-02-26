@@ -23,7 +23,8 @@ class RequestFactoryTest extends TestCase
 
         $order = Order::create(['currency' => 'RON', 'amount' => 19.99]);
         $payment = PaymentFactory::createFromPayable($order, $method);
-        $request = (new RequestFactory('test', 'public.key', 'private.key', true))->create($payment);
+        $factory = new RequestFactory('test-signature', 'public.key', 'private.key', true, 'https://return.url', 'https://confirm.url');
+        $request = $factory->create($payment);
 
         $this->assertInstanceOf(
             NetopiaPaymentRequest::class,

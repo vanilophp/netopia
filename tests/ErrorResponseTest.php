@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Tests;
 
+use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
+use Vanilo\Netopia\Exceptions\MalformedNetopiaResponse;
+
 class ErrorResponseTest extends TestCase
 {
     /** @test */
@@ -36,5 +39,16 @@ class ErrorResponseTest extends TestCase
              ->assertSee('<?xml version="1.0" encoding="utf-8" ?>', false)
              ->assertSee('<crc error_type="2" error_code="500">', false)
              ->assertSee('</crc>', false);
+    }
+
+    protected function defineRoutes($router)
+    {
+        $router->get('/throw-validation-error', function () {
+            throw MalformedNetopiaResponse::create();
+        });
+
+        $router->get('/throw-netopia-key-error', function () {
+            throw InvalidNetopiaKeyException::fromPath('/some/path/server.key');
+        });
     }
 }

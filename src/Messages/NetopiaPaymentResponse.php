@@ -10,8 +10,9 @@ use Vanilo\Payment\Contracts\PaymentResponse;
 class NetopiaPaymentResponse implements PaymentResponse
 {
     /**
-     * The error code states whether the action has been successful or not.A 0 (zero) value states that the action has
-     * succeeded. A different value means it has not.
+     * The error code states whether the action has been successful or not:
+     *  - 0 (zero) => the action has succeeded
+     *  - Non-zero => the action has failed
      */
     private int $errorCode;
 
@@ -63,12 +64,5 @@ class NetopiaPaymentResponse implements PaymentResponse
     public function getPaymentId(): string
     {
         return $this->paymentId;
-    }
-
-    public function getReplyToNetopia(): Response
-    {
-        $content = "<?xml version=\"1.0\" encoding=\"utf-8\"?><crc>Confirmation received with code {$this->errorCode}</crc>";
-
-        return (new Response())->withHeaders(['Content-type' => 'application/xml'])->setContent($content);
     }
 }

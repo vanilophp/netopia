@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Contains the HasCallbackUrls trait.
+ * Contains the HasNetopiaCallbackUrls trait.
  *
  * @copyright   Copyright (c) 2021 Attila Fulop
  * @author      Attila Fulop
@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Concerns;
 
-trait HasCallbackUrls
+trait HasNetopiaCallbackUrls
 {
     private string $returnUrl;
 

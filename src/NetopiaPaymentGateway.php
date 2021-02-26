@@ -15,8 +15,7 @@ namespace Vanilo\Netopia;
 
 use Illuminate\Http\Request;
 use Vanilo\Contracts\Address;
-use Vanilo\Netopia\Concerns\HasCallbackUrls;
-use Vanilo\Netopia\Concerns\HasNetopiaConfig;
+use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Factories\RequestFactory;
 use Vanilo\Netopia\Factories\ResponseFactory;
 use Vanilo\Payment\Contracts\Payment;
@@ -26,28 +25,11 @@ use Vanilo\Payment\Contracts\PaymentResponse;
 
 class NetopiaPaymentGateway implements PaymentGateway
 {
-    use HasNetopiaConfig;
-    use HasCallbackUrls;
+    use HasFullNetopiaInteraction;
 
     public const DEFAULT_ID = 'netopia';
 
     private ?RequestFactory $requestFactory = null;
-
-    public function __construct(
-        string $signature,
-        string $publicCertificatePath,
-        string $privateCertificatePath,
-        bool $isSandbox,
-        string $returnUrl,
-        string $confirmUrl
-    ) {
-        $this->signature = $signature;
-        $this->publicCertificatePath = $publicCertificatePath;
-        $this->privateCertificatePath = $privateCertificatePath;
-        $this->isSandbox = $isSandbox;
-        $this->returnUrl = $returnUrl;
-        $this->confirmUrl = $confirmUrl;
-    }
 
     public static function getName(): string
     {
@@ -57,7 +39,14 @@ class NetopiaPaymentGateway implements PaymentGateway
     public function createPaymentRequest(Payment $payment, Address $shippingAddress = null, array $options = []): PaymentRequest
     {
         if (null === $this->requestFactory) {
-            $this->requestFactory = new RequestFactory($this->signature, $this->publicCertificatePath, $this->isSandbox);
+            $this->requestFactory = new RequestFactory(
+                $this->signature,
+                $this->publicCertificatePath,
+                $this->privateCertificatePath,
+                $this->isSandbox,
+                $this->returnUrl,
+                $this->confirmUrl
+            );
         }
 
         return $this->requestFactory->create($payment, $options);

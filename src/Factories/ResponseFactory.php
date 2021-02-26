@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use SimpleXMLElement;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
 use Vanilo\Netopia\Exceptions\MalformedNetopiaResponse;
+use Vanilo\Netopia\Exceptions\NetopiaDecryptionException;
 use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
 
 final class ResponseFactory
@@ -30,16 +31,18 @@ final class ResponseFactory
             throw MalformedNetopiaResponse::create();
         }
 
-        $key = openssl_get_privatekey("file://{$privateCertificatePath}");
-        if (false === $key) {
+        $privateKey = openssl_get_privatekey("file://{$privateCertificatePath}");
+        if (false === $privateKey) {
             throw InvalidNetopiaKeyException::fromPath($privateCertificatePath);
         }
 
-        $srcData = base64_decode($request->get('data'));
-        $srcEnvKey = base64_decode($request->get('env_key'));
-        $data = null;
-        openssl_open($srcData, $data, $srcEnvKey, $key, 'RC4');
+        $encryptedData = base64_decode($request->get('data'));
+        $envelopeKey = base64_decode($request->get('env_key'));
+        $xmlResponse = null;
+        if (!openssl_open($encryptedData, $xmlResponse, $envelopeKey, $privateKey, 'RC4')) {
+            throw new NetopiaDecryptionException();
+        }
 
-        return simplexml_load_string($data);
+        return simplexml_load_string($xmlResponse);
     }
 }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Factories;
 
-use Vanilo\Netopia\Concerns\InteractsWithNetopia;
+use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Messages\NetopiaPaymentRequest;
 use Vanilo\Payment\Contracts\Payment;
 
 final class RequestFactory
 {
-    use InteractsWithNetopia;
+    use HasFullNetopiaInteraction;
 
     public function create(Payment $payment, array $options = []): NetopiaPaymentRequest
     {
@@ -18,7 +18,9 @@ final class RequestFactory
             $this->signature,
             $this->publicCertificatePath,
             $this->privateCertificatePath,
-            $this->isSandbox
+            $this->isSandbox,
+            $this->returnUrl,
+            $this->confirmUrl
         );
         $billPayer = $payment->getPayable()->getBillPayer();
 
@@ -35,9 +37,15 @@ final class RequestFactory
             ->setPhone($billPayer->getPhone())
             ->setAddress(
                 $billPayer->getBillingAddress()->getCity() . ' ' . $billPayer->getBillingAddress()->getAddress()
-            )
-            ->setConfirmUrl($options['confirm'] ?? '/')
-            ->setReturnUrl($options['return'] ?? '/');
+            );
+
+        if (isset($options['confirm_url'])) {
+            $result->setConfirmUrl($options['confirm_url']);
+        }
+
+        if (isset($options['return_url'])) {
+            $result->setReturnUrl($options['return_url']);
+        }
 
         return $result;
     }

@@ -6,13 +6,13 @@ namespace Vanilo\Netopia\Messages;
 
 use DOMDocument;
 use Illuminate\Support\Facades\View;
-use Vanilo\Netopia\Concerns\InteractsWithNetopia;
+use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
 use Vanilo\Payment\Contracts\PaymentRequest;
 
 class NetopiaPaymentRequest implements PaymentRequest
 {
-    use InteractsWithNetopia;
+    use HasFullNetopiaInteraction;
 
     private string $paymentId;
 
@@ -35,10 +35,6 @@ class NetopiaPaymentRequest implements PaymentRequest
     private ?string $phone;
 
     private string $address;
-
-    private string $confirmUrl;
-
-    private string $returnUrl;
 
     public function getHtmlSnippet(array $options = []): ?string
     {
