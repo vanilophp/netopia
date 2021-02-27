@@ -4,15 +4,12 @@
 
     @if($autoRedirect)
         <p>{{ __('You will be redirected to the secure payment page') }}</p>
-        <p class="text-center">
+        <p>
             <img src="https://www.euplatesc.ro/plati-online/tdsprocess/images/progress.gif" alt="" title=""
                  onload="javascript:document.netopia.submit()">
         </p>
-    @else
-        <p>{{ __('You will be redirected to the secure payment page') }}</p>
-
-        <button type="submit">
-            {{ __('Submit') }}
-        </button>
     @endif
+        <button type="submit">
+            {{ __('Proceed to Payment') }}
+        </button>
 </form>
