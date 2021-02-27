@@ -180,7 +180,7 @@ class NetopiaPaymentRequest implements PaymentRequest
 
         $invoiceNode = $xml->createElement('invoice');
         $invoiceNode->setAttribute('currency', $this->currency);
-        $invoiceNode->setAttribute('amount', $this->amount);
+        $invoiceNode->setAttribute('amount', number_format($this->amount, 2, '.', ''));
 
         $invoiceNode->appendChild($xml->createElement('details', $this->details));
 
