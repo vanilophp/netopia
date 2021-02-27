@@ -37,6 +37,13 @@ class OrderController
 - `return_url`
 - `description`
 
+### PaymentRequest
+
+getHtmlSnippet() options:
+
+- `autoRedirect`: bool, which if true, the rendered payment request from will automatically submit
+  itself on load towards Netopia.
+
 ---
 
 **Next**: [Examples &raquo;](examples.md)
