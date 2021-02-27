@@ -8,6 +8,7 @@ use DOMDocument;
 use Illuminate\Support\Facades\View;
 use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
+use Vanilo\Netopia\Models\NetopiaPaymentType;
 use Vanilo\Payment\Contracts\PaymentRequest;
 
 class NetopiaPaymentRequest implements PaymentRequest
@@ -171,7 +172,7 @@ class NetopiaPaymentRequest implements PaymentRequest
         $xml = new DOMDocument('1.0', 'utf-8');
 
         $orderNode = $xml->createElement('order');
-        $orderNode->setAttribute('type', 'card');
+        $orderNode->setAttribute('type', urlencode(NetopiaPaymentType::CARD));
         $orderNode->setAttribute('id', $this->paymentId);
         $orderNode->setAttribute('timestamp', $this->timestamp);
         $xml->appendChild($orderNode);
