@@ -92,9 +92,5 @@ EOT;
 
             return new SuccessResponseToNetopia('Roger that');
         });
-
-        $router->get('/throw-netopia-key-error', function () {
-            throw InvalidNetopiaKeyException::fromPath('/some/path/server.key');
-        });
     }
 }
