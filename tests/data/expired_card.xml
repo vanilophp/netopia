@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<order type="card" id="IRy1ciaxpCZgEDQ8VBjQc" timestamp="20210227150135">
+    <signature>CLTN-UA6F-T67W-5BPB-CH82</signature>
+    <invoice currency="USD" amount="10.00">
+        <details>Order no. QFSPKFWV60QF</details>
+        <contact_info>
+            <billing type="person">
+                <first_name>Attila</first_name>
+                <last_name>F?l?p</last_name>
+                <email>email@example.org</email>
+                <address>Brasov Str. Ciucas nr. 18.</address>
+                <mobile_phone>0789123456</mobile_phone>
+            </billing>
+        </contact_info>
+    </invoice>
+    <url>
+        <confirm>https://vanilo.eu.ngrok.io/payment/netopia/confirm</confirm>
+        <return>https://vanilo.eu.ngrok.io/payment/netopia/return</return>
+    </url>
+    <mobilpay timestamp="20210227170210" crc="10d50a2bac0b1039eafc4018d81a3e67">
+        <action>paid</action>
+        <customer type="person">
+            <first_name><![CDATA[Attila]]></first_name>
+            <last_name><![CDATA[F%C3%BCl%C3%B6p]]></last_name>
+            <address><![CDATA[Sfantu+Gheorghe+Str.+Soimului+nr.+21.]]></address>
+            <email><![CDATA[attila%40vanilo.io]]></email>
+            <mobile_phone><![CDATA[0733896301]]></mobile_phone>
+        </customer>
+        <purchase>1193641</purchase>
+        <original_amount>40.21</original_amount>
+        <processed_amount>40.21</processed_amount>
+        <current_payment_count>1</current_payment_count>
+        <pan_masked>9****7790</pan_masked>
+        <payment_instrument_id>41939</payment_instrument_id>
+        <error code="19"><![CDATA[Card expirat]]></error>
+    </mobilpay>
+</order>
