@@ -8,7 +8,6 @@ use DOMDocument;
 use Illuminate\Support\Facades\View;
 use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
-use Vanilo\Netopia\Models\NetopiaPaymentType;
 use Vanilo\Payment\Contracts\PaymentRequest;
 
 class NetopiaPaymentRequest implements PaymentRequest
