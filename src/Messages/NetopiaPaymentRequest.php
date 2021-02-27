@@ -172,7 +172,7 @@ class NetopiaPaymentRequest implements PaymentRequest
         $xml = new DOMDocument('1.0', 'utf-8');
 
         $orderNode = $xml->createElement('order');
-        $orderNode->setAttribute('type', urlencode(NetopiaPaymentType::CARD));
+        $orderNode->setAttribute('type', 'card');
         $orderNode->setAttribute('id', $this->paymentId);
         $orderNode->setAttribute('timestamp', $this->timestamp);
         $xml->appendChild($orderNode);
@@ -207,7 +207,7 @@ class NetopiaPaymentRequest implements PaymentRequest
 
         $orderNode->appendChild($urlNode);
 
-        return $xml->saveHTML();
+        return $xml->saveXML();
     }
 
     private function getUrl(): string
