@@ -15,13 +15,8 @@ final class ResponseFactory
 {
     public static function create(Request $request, string $privateCertificatePath): NetopiaPaymentResponse
     {
-        $xmlResponse = self::decrypt($request, $privateCertificatePath);
-
         return new NetopiaPaymentResponse(
-            (string) $xmlResponse->attributes()->id[0],
-            (int) $xmlResponse->mobilpay->error->attributes()->code[0],
-            (float) $xmlResponse->mobilpay->processed_amount[0],
-            isset($xmlResponse->mobilpay->error[0]) ? (string) $xmlResponse->mobilpay->error[0] : null,
+            self::decrypt($request, $privateCertificatePath)
         );
     }
 
@@ -40,9 +35,14 @@ final class ResponseFactory
         $envelopeKey = base64_decode($request->get('env_key'));
         $xmlResponse = null;
         if (!openssl_open($encryptedData, $xmlResponse, $envelopeKey, $privateKey, 'RC4')) {
-            throw new NetopiaDecryptionException();
+            throw new NetopiaDecryptionException('Failed to decrypt the message');
         }
 
-        return simplexml_load_string($xmlResponse);
+        $result = simplexml_load_string($xmlResponse);
+        if (false === $result) {
+            throw new NetopiaDecryptionException('Failed parsing the decrypted response XML');
+        }
+
+        return $result;
     }
 }

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Contains the SuccessResponseTest class.
+ * Contains the HttpSuccessResponseTest class.
  *
  * @copyright   Copyright (c) 2021 Attila Fulop
  * @author      Attila Fulop
@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Vanilo\Netopia\Http\Responses\SuccessResponseToNetopia;
 use Vanilo\Payment\PaymentGateways;
 
-class SuccessResponseTest extends TestCase
+class HttpSuccessResponseTest extends TestCase
 {
     /** @test */
     public function it_can_return_a_netopia_compliant_success_message()

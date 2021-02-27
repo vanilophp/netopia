@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Messages;
 
+use SimpleXMLElement;
 use Vanilo\Payment\Contracts\PaymentResponse;
 
 class NetopiaPaymentResponse implements PaymentResponse
@@ -15,7 +16,7 @@ class NetopiaPaymentResponse implements PaymentResponse
      */
     private int $errorCode;
 
-    private ?string $errorMessage;
+    private string $message;
 
     private string $paymentId;
 
@@ -28,16 +29,12 @@ class NetopiaPaymentResponse implements PaymentResponse
      */
     private string $action;
 
-    public function __construct(
-        string $paymentId,
-        int $errorCode,
-        float $processedAmount,
-        string $errorMessage = null
-    ) {
-        $this->paymentId = $paymentId;
-        $this->errorCode = $errorCode;
-        $this->processedAmount = $processedAmount;
-        $this->errorMessage = $errorMessage;
+    public function __construct(SimpleXMLElement $xml)
+    {
+        $this->paymentId = (string) $xml->attributes()->id[0];
+        $this->errorCode = (int) $xml->mobilpay->error->attributes()->code[0];
+        $this->processedAmount = (float) $xml->mobilpay->processed_amount[0];
+        $this->message = isset($xml->mobilpay->error[0]) ? (string) $xml->mobilpay->error[0] : '';
     }
 
     public function wasSuccessful(): bool
@@ -47,7 +44,7 @@ class NetopiaPaymentResponse implements PaymentResponse
 
     public function getMessage(): ?string
     {
-        return $this->errorMessage;
+        return $this->message;
     }
 
     public function getTransactionId(): ?string

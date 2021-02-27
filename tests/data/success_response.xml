@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<order type="card" id="4krlFIstz7_Xntw2CWbIH" timestamp="20210227103759">
+    <signature>CLTN-UA6F-T67W-5BPB-CH82</signature>
+    <invoice currency="USD" amount="33.00">
+        <details>Order no. 5T3T3H2JZ9R7</details>
+        <contact_info>
+            <billing type="person">
+                <first_name>Attila</first_name>
+                <last_name>F?l?p</last_name>
+                <email>email@example.org</email>
+                <address>Brasov Str. Soimului nr. 21.</address>
+                <mobile_phone>0789123456</mobile_phone>
+            </billing>
+        </contact_info>
+    </invoice>
+    <url>
+        <confirm>https://vanilo.eu.ngrok.io/payment/netopia/confirm</confirm>
+        <return>https://vanilo.eu.ngrok.io/payment/netopia/return</return>
+    </url>
+    <mobilpay timestamp="20210227123828" crc="d4d2527836cf7727bbd664b94444c056">
+        <action>confirmed</action>
+        <customer type="person">
+            <first_name>
+                <![CDATA[Attila]]>
+            </first_name>
+            <last_name>
+                <![CDATA[F%C3%BCl%C3%B6p]]>
+            </last_name>
+            <address>
+                <![CDATA[Brasov+Str.+Soimului+nr.+21.]]>
+            </address>
+            <email>
+                <![CDATA[email%40example.org]]>
+            </email>
+            <mobile_phone>
+                <![CDATA[0789123456]]>
+            </mobile_phone>
+        </customer>
+        <purchase>1193617</purchase>
+        <original_amount>132.69</original_amount>
+        <processed_amount>132.69</processed_amount>
+        <current_payment_count>1</current_payment_count>
+        <pan_masked>9****5098</pan_masked>
+        <rrn>9991614</rrn>
+        <payment_instrument_id>41806</payment_instrument_id>
+        <error code="0">
+            <![CDATA[Tranzactia aprobata]]>
+        </error>
+    </mobilpay>
+</order>

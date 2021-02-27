@@ -19,7 +19,7 @@ class SuccessResponseToNetopia extends BaseResponseToNetopia
     public function __construct(string $message = null)
     {
         if (null === $message) {
-            $message = "Confirmation received with code";
+            $message = "Confirmation successfully received";
         }
 
         parent::__construct(200, $message);

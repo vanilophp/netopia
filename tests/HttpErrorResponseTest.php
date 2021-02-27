@@ -17,7 +17,7 @@ namespace Vanilo\Netopia\Tests;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
 use Vanilo\Netopia\Exceptions\MalformedNetopiaResponse;
 
-class ErrorResponseTest extends TestCase
+class HttpErrorResponseTest extends TestCase
 {
     /** @test */
     public function it_returns_a_netopia_compliant_xml_http_response_when_response_validation_error_occurs()

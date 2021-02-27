@@ -16,8 +16,8 @@ namespace Vanilo\Netopia\Exceptions;
 
 class NetopiaDecryptionException extends BaseNetopiaHttpException
 {
-    public function __construct()
+    public function __construct(string $message)
     {
-        parent::__construct(500, 'Failed to decrypt the message');
+        parent::__construct(500, $message);
     }
 }
