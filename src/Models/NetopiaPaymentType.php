@@ -19,6 +19,6 @@ use Konekt\Enum\Enum;
 class NetopiaPaymentType extends Enum
 {
     public const __DEFAULT = self::CARD;
-    public const SMS    = 0x01;
-    public const CARD   = 0x02;
+    public const SMS = 0x01;
+    public const CARD = 0x02;
 }
