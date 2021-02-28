@@ -36,10 +36,12 @@ class NetopiaPaymentRequest implements PaymentRequest
 
     private string $address;
 
+    private string $view = 'netopia::_request';
+
     public function getHtmlSnippet(array $options = []): ?string
     {
         return View::make(
-            'netopia::_request',
+            $this->view,
             array_merge(
                 $this->encryptData(),
                 [
@@ -146,6 +148,13 @@ class NetopiaPaymentRequest implements PaymentRequest
         return $this;
     }
 
+    public function setView(string $view): self
+    {
+        $this->view = $view;
+
+        return $this;
+    }
+
     private function encryptData(): array
     {
         $publicKey = openssl_pkey_get_public("file://{$this->publicCertificatePath}");
@@ -189,11 +198,11 @@ class NetopiaPaymentRequest implements PaymentRequest
         $billingNode = $xml->createElement('billing');
         $billingNode->setAttribute('type', $this->billingType);
 
-        $billingNode->appendChild($xml->createElement('first_name', $this->firstName));
-        $billingNode->appendChild($xml->createElement('last_name', $this->lastName));
-        $billingNode->appendChild($xml->createElement('email', $this->email));
-        $billingNode->appendChild($xml->createElement('address', $this->address));
-        $billingNode->appendChild($xml->createElement('mobile_phone', $this->phone));
+        $billingNode->appendChild($xml->createElement('first_name', $this->firstName ?? ''));
+        $billingNode->appendChild($xml->createElement('last_name', $this->lastName ?? ''));
+        $billingNode->appendChild($xml->createElement('email', $this->email ?? ''));
+        $billingNode->appendChild($xml->createElement('address', $this->address ?? ''));
+        $billingNode->appendChild($xml->createElement('mobile_phone', $this->phone ?? ''));
 
         $contactNode->appendChild($billingNode);
         $invoiceNode->appendChild($contactNode);
@@ -211,6 +220,6 @@ class NetopiaPaymentRequest implements PaymentRequest
 
     private function getUrl(): string
     {
-        return $this->isSandbox ? 'http://sandboxsecure.mobilpay.ro' : 'https://secure.mobilpay.ro';
+        return $this->isSandbox ? 'https://sandboxsecure.mobilpay.ro' : 'https://secure.mobilpay.ro';
     }
 }

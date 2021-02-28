@@ -47,6 +47,10 @@ final class RequestFactory
             $result->setReturnUrl($options['return_url']);
         }
 
+        if (isset($options['view'])) {
+            $result->setView($options['view']);
+        }
+
         return $result;
     }
 }

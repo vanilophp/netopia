@@ -64,6 +64,11 @@ class OrderController
 The generated HTML snippet will contain a prepared, encrypted HTML Form with all the necessary
 details that can be submitted to Netopia to start the payment process.
 
+You can pass an array to the `getHtmlSnippet()` method that recognizes the following keys:
+
+- `autoRedirect`: bool, which if true, the rendered payment request from will automatically submit
+  itself on load towards Netopia.
+
 ### Payment Request Options
 
 The gateway's `createPaymentRequest` method accepts additional parameters that can be used to
@@ -104,18 +109,25 @@ $options = [
 $gateway->createPaymentRequest($payment, null, $options);
 ```
 
-#### Customizing The View
+#### Customizing The Generated HTML
 
-Apart from passing the `view` option to the `createPaymentRequest`, there's an even more simple way:
-Laravel lets you customize the views from vendor packages like this [...]
+Apart from passing the `view` option to the `createPaymentRequest` (see above), there's an even more
+simple way: Laravel lets you
+[override the views from vendor packages](https://laravel.com/docs/8.x/packages#overriding-package-views)
+like this.
 
+Simply put, if you create the `resources/views/vendor/netopia/_request.blade.php` file in your
+application, then this blade view will be used instead of the one supplied by the package.
 
-### PaymentRequest
+To get the default view from the package and start customizing it, use this command:
 
-getHtmlSnippet() options:
+```bash
+php artisan vendor:publish --tag=netopia
+```
 
-- `autoRedirect`: bool, which if true, the rendered payment request from will automatically submit
-  itself on load towards Netopia.
+This will copy the default blade view used to render the HTML form into the
+`resources/views/vendor/netopia/` of your application. After that, your application will use that
+template to render the HTML snippet for Netopia payment requests.
 
 ## Confirm And Return URLs
 

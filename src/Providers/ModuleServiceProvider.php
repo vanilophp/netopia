@@ -42,5 +42,11 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
                 );
             });
         }
+
+        $this->publishes([
+            $this->getBasePath() . '/' . $this->concord->getConvention()->viewsFolder() =>
+            resource_path('views/vendor/netopia'),
+            'netopia'
+        ]);
     }
 }
