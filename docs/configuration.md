@@ -21,11 +21,11 @@ For more details about return and confirm URLs refer to [the Workflow section](w
 
 ## Registration with Payments Module
 
-The module will register the payment gateway with the Vanilo Payments registry by default.
-This way you can get a gateway instance directly from the Payment registry:
+The module will automatically register the payment gateway with the Vanilo Payments registry by
+default. Having that, you can get a gateway instance directly from the Payment registry:
 
 ```php
-\Vanilo\Payment\PaymentGateways::make('netopia');
+$netopiaGateway = \Vanilo\Payment\PaymentGateways::make('netopia');
 ```
 
 ### Registering With Another Name
@@ -93,10 +93,10 @@ Laravel container (ie. `app()->make(NetopiaPaymentGateway::class)`) but from the
 Gateway registry:
 
 ```php
-\Vanilo\Payment\PaymentGateways::make('netopia');
+$instance = \Vanilo\Payment\PaymentGateways::make('netopia');
 ```
 
-The default binding happens so that all the configuration parameters are read from the config values
+The default DI binding happens so that all the configuration parameters are read from the config values
 mentioned above. This will work out of the box and will be sufficient for most of the applications.
 
 ### Manual Binding
@@ -112,11 +112,11 @@ return [
             'bind' => false,
 ```
 
-This can be useful if the Gateway configuration couldn't be set in the env file, for example when:
+This can be useful if the Gateway configuration can't be set in the env file, for example when:
 
-- The credentials can be configured in and Admin interface
-- Your app has multiple payment methods using the same gateway (eg. Card, SMS or Wallet)
-- There is a multi-tenant application, where each tenant has their own values
+- The credentials can be **configured in an Admin interface** instead of `.env`
+- Your app has **multiple payment methods** that use Netopia with **different credentials**
+- There is a **multi-tenant application**, where each tenant has their own credentials
 
 Setting `vanilo.netopia.bind` to `false` will cause that the class doesn't get bound with the
 Laravel DI container automatically. Therefore, you need to do this yourself in your application,
@@ -125,9 +125,9 @@ typically in the `AppServiceProvider::boot()` method:
 ```php
 $this->app->bind(NetopiaPaymentGateway::class, function ($app) {
     return new NetopiaPaymentGateway(
-        config('vanilo.netopia.signature'), // You can use different source than config
-        config('vanilo.netopia.public_certificate_path'), // for these parameters
-        config('vanilo.netopia.private_certificate_path'),
+        config('vanilo.netopia.signature'),                // You can use any source 
+        config('vanilo.netopia.public_certificate_path'),  // other than config()
+        config('vanilo.netopia.private_certificate_path'), // for passing args
         config('vanilo.netopia.sandbox'),
         config('vanilo.netopia.return_url'),
         config('vanilo.netopia.confirm_url')

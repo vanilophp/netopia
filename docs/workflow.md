@@ -11,7 +11,7 @@ The typical Vanilo Payments workflow with Netopia consists of the following step
 7. The payment processor sends a **callback** to your site with the payment result (to `confirm_url`)
 8. The consumer gets **redirected back** to your site (to `return_url`)
 
-> *: If your site's one and only payment method is Card/Netopia (ie. no cash on delivery, etc), then this step is not needed of course.
+> *: If your site's one and only payment method is Card/Netopia (ie. no cash on delivery, etc), then step 2 might not be necessary.
 
 ## Obtain Gateway Instance
 
@@ -19,12 +19,13 @@ Once you have an order (or any other payable), then the starting point of paymen
 obtaining a gateway instance:
 
 ```php
-\Vanilo\Payment\PaymentGateways::make('netopia');
+$gateway = \Vanilo\Payment\PaymentGateways::make('netopia');
+// Vanilo\Netopia\NetopiaPaymentGateway
 ```
 
 The gateway provides you two essential methods:
 
-- `createPaymentRequest` - Assembles the payment initiation request from an order that can be injected on your checkout page.
+- `createPaymentRequest` - Assembles the payment initiation request from an order (payable) that can be injected on your checkout page.
 - `processPaymentResponse` - Processes the HTTP response returning from Netopia after a payment attempt.
 
 ## Starting Online Payments
@@ -62,12 +63,17 @@ class OrderController
 ```
 
 The generated HTML snippet will contain a prepared, encrypted HTML Form with all the necessary
-details that can be submitted to Netopia to start the payment process.
+details that can be submitted to Netopia right from the consumer's browser to start the payment
+process.
 
 You can pass an array to the `getHtmlSnippet()` method that recognizes the following keys:
 
 - `autoRedirect`: bool, which if true, the rendered payment request from will automatically submit
   itself on load towards Netopia.
+
+```blade
+{!! $paymentRequest->getHtmlSnippet(['autoRedirect' => true]); !!}
+```
 
 ### Payment Request Options
 
@@ -84,11 +90,11 @@ public function createPaymentRequest(
     ): PaymentRequest
 ```
 
-1. The first parameter is the payment. Every attempt to settle a payable is a new `Payment` record.
-2. The second one is the shipping address in case it differs from billing address. Netopia doesn't support this option, leave it always `NULL`.
-3. The third parameters is an array with possible options.
+1. The first parameter is the `$payment`. Every attempt to settle a payable is a new `Payment` record.
+2. The second one is the `$shippingAddress` in case it differs from billing address. Netopia doesn't support this option, leave it always `NULL`.
+3. The third parameters is an array with possible `$options`.
 
-You can pass the following values in the `$option` array:
+You can pass the following values in the `$options` array:
 
 | Array Key     | Example                                | Description                                                                                                                                      |
 |:--------------|:---------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -126,27 +132,29 @@ php artisan vendor:publish --tag=netopia
 ```
 
 This will copy the default blade view used to render the HTML form into the
-`resources/views/vendor/netopia/` of your application. After that, your application will use that
-template to render the HTML snippet for Netopia payment requests.
+`resources/views/vendor/netopia/` folder of your application. After that, the `getHtmlSnippet()`
+method will use the copied blade template to render the HTML snippet for Netopia payment requests.
 
 ## Confirm And Return URLs
 
-Netopia uses two URLs on your site during the payment process the confirm and the return URLS.
-Although you can set these URLs directly in the Netopia Admin panel, typically people don't do it,
-but send these URLs along with each payment request. You can leave the values empty in the Netopia
-Admin panel.
+Netopia uses two URLs on your site during the payment process: the **confirm** and the **return**
+URL. Although you can set these URLs directly in the Netopia Admin panel, typically people don't do
+it, but send these URLs along with each payment request. You can leave the values empty in the
+Netopia Admin panel.
 
 ### The Confirm URL
 
 This is a URL in your web application that will be called (using `POST` method) whenever the status
 of a payment changes or a manual IPN is being sent. This is a transparent asynchronous call,
-however, the first call is always synchronous;
+however, the first call is always synchronous.
+
+> This is a **server-to-server** call, the consumer's browser is never redirected to this URL.
 
 ### The Return URL
 
-This is a URL in your web application where the client will be redirected (using `GET` method) to
-once the payment is complete. Not to be confused with a success or cancel URL, the information
-displayed here is dynamic, based on the information previously sent to confirm URL.
+This is a URL in your web application where the **consumer will be redirected to**
+(using `GET` method) once the payment is complete. Not to be confused with a success or cancel URL,
+the information displayed here is dynamic, based on the information previously sent to confirm URL.
 
 ---
 
