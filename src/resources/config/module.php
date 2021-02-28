@@ -9,6 +9,7 @@ return [
         'register' => true,
         'id' => NetopiaPaymentGateway::DEFAULT_ID
     ],
+    'bind' => true,
     'signature' => env('NETOPIA_SIGNATURE'),
     'public_certificate_path' => env('NETOPIA_PUBLIC_CERTIFICATE_PATH'),
     'private_certificate_path' => env('NETOPIA_PRIVATE_CERTIFICATE_PATH'),
