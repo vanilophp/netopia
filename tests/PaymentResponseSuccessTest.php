@@ -51,10 +51,17 @@ class PaymentResponseSuccessTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_crc_as_the_transaction_id()
+    public function it_returns_the_payment_id_as_the_transaction_id()
     {
         $response = $this->loadSuccessResponse();
-        $this->assertEquals('d4d2527836cf7727bbd664b94444c056', $response->getTransactionId());
+        $this->assertEquals('4krlFIstz7_Xntw2CWbIH', $response->getTransactionId());
+    }
+
+    /** @test */
+    public function it_returns_the_crc()
+    {
+        $response = $this->loadSuccessResponse();
+        $this->assertEquals('d4d2527836cf7727bbd664b94444c056', $response->getCrc());
     }
 
     /** @test */

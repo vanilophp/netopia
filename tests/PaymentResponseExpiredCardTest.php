@@ -51,10 +51,17 @@ class PaymentResponseExpiredCardTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_crc_as_the_transaction_id()
+    public function it_returns_the_payment_id_as_the_transaction_id()
     {
         $response = $this->loadExpiredCardResponse();
-        $this->assertEquals('10d50a2bac0b1039eafc4018d81a3e67', $response->getTransactionId());
+        $this->assertEquals('IRy1ciaxpCZgEDQ8VBjQc', $response->getTransactionId());
+    }
+
+    /** @test */
+    public function it_returns_the_crc()
+    {
+        $response = $this->loadExpiredCardResponse();
+        $this->assertEquals('10d50a2bac0b1039eafc4018d81a3e67', $response->getCrc());
     }
 
     /** @test */

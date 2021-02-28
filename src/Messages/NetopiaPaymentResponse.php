@@ -28,7 +28,7 @@ class NetopiaPaymentResponse implements PaymentResponse
 
     private string $paymentId;
 
-    private string $transactionId;
+    private string $crc;
 
     private float $submittedAmountInOriginalCurrency;
 
@@ -40,7 +40,7 @@ class NetopiaPaymentResponse implements PaymentResponse
     {
         $this->paymentId = (string) $xml->attributes()->id[0];
         $this->errorCode = (int) $xml->mobilpay->error->attributes()->code[0];
-        $this->transactionId = (string) $xml->mobilpay->attributes()->crc[0];
+        $this->crc = (string) $xml->mobilpay->attributes()->crc[0];
 
         $this->processedAmount = (float) $xml->mobilpay->processed_amount[0];
         $this->submittedAmount = (float) $xml->mobilpay->original_amount[0];
@@ -60,9 +60,16 @@ class NetopiaPaymentResponse implements PaymentResponse
         return $this->message;
     }
 
+    public function getCrc(): string
+    {
+        return $this->crc;
+    }
+
     public function getTransactionId(): ?string
     {
-        return $this->transactionId;
+        // Netopia treats the passed id as transaction id
+        // We follow that convention to comply with it
+        return $this->paymentId;
     }
 
     public function getAmountPaid(): ?float
