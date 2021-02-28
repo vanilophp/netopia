@@ -15,6 +15,18 @@ class RequestFactoryTest extends TestCase
 {
     private PaymentMethod $method;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->app->view->addNamespace('netopia-tests', __DIR__ . '/views');
+
+        $this->method = PaymentMethod::create([
+            'gateway' => NetopiaPaymentGateway::getName(),
+            'name' => 'Netopia',
+        ]);
+    }
+
     /** @test */
     public function it_creates_a_request_object()
     {
@@ -59,18 +71,6 @@ class RequestFactoryTest extends TestCase
         $this->assertStringContainsString('action="https://sandboxsecure.mobilpay.ro"', $html);
         $this->assertStringContainsString('<input type="hidden" name="env_key"', $html);
         $this->assertStringContainsString('<input type="hidden" name="data"', $html);
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app->view->addNamespace('netopia-tests', __DIR__ . '/views');
-
-        $this->method = PaymentMethod::create([
-            'gateway' => NetopiaPaymentGateway::getName(),
-            'name' => 'Netopia',
-        ]);
     }
 
     private function createTestFactory(): RequestFactory
