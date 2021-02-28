@@ -1,6 +1,6 @@
 # Examples
 
-The Example below shows some of the code that you can put in your application.
+The Example below shows parts of the code that you can put in your application.
 
 ### CheckoutController
 
@@ -62,15 +62,14 @@ class NetopiaReturnController extends Controller
 {
     // This action renders a view for the Consumer after return from Netopia.
     // Before this action, confirm has also been called by Netopia already
-    // in the background, thus the payment status is should be updated.
+    // in the background, therefore the payment status shall be updated
     public function return(Request $request)
     {
         $payment = Payment::findByPaymentId($request->get('orderId'));
 
-        return view('payment.return_netopia', [
+        return view('payment.return_netopia', [ // The view is from your application
             'payment' => $payment,
             'order'   => $payment->getPayable(),
-            'request' => $request,
         ]);
     }
 
@@ -85,6 +84,7 @@ class NetopiaReturnController extends Controller
         $payment  = Payment::findByPaymentId($response->getPaymentId());
 
         if (!$payment) {
+            // This returns an HTTP response in the format that Netopia understands
             return new ErrorResponseToNetopia(404, 'Could not locate payment with id ' . $response->getPaymentId());
         }
 
@@ -105,6 +105,7 @@ class NetopiaReturnController extends Controller
             event(new PaymentDeclined($payment));
         }
 
+        // Returns a success response in the format Netopia expects
         return new SuccessResponseToNetopia();
     }
 }
