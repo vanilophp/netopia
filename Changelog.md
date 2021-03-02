@@ -1,6 +1,6 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2021-XX-XX
+## 1.0.0
+##### 2021-03-02
 
-- Initial release
+- Initial release. Works
