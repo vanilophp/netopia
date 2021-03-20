@@ -20,9 +20,9 @@
     },
     "require": {
         "php": "^7.4|^8.0",
-        "konekt/concord": "^1.5",
-        "vanilo/payment": "^2.1",
-        "vanilo/contracts": "^2.1",
+        "konekt/concord": "^1.6",
+        "vanilo/payment": "^2.2",
+        "vanilo/contracts": "^2.2",
         "ext-dom": "*",
         "ext-openssl": "*",
         "ext-simplexml": "*"
@@ -47,7 +47,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.2.x-dev"
         }
     }
 }

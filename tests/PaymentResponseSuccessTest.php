@@ -16,6 +16,7 @@ namespace Vanilo\Netopia\Tests;
 
 use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
 use Vanilo\Netopia\Models\NetopiaAction;
+use Vanilo\Payment\Models\PaymentStatus;
 
 class PaymentResponseSuccessTest extends TestCase
 {
@@ -77,6 +78,13 @@ class PaymentResponseSuccessTest extends TestCase
         $response = $this->loadSuccessResponse();
         $this->assertInstanceOf(NetopiaAction::class, $response->action);
         $this->assertTrue($response->action->equals(NetopiaAction::CONFIRMED()));
+    }
+
+    /** @test */
+    public function the_status_is_authorized()
+    {
+        $response = $this->loadSuccessResponse();
+        $this->assertEquals(PaymentStatus::AUTHORIZED, $response->getStatus()->value());
     }
 
     /** @test */

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Messages;
 
+use Konekt\Enum\Enum;
 use SimpleXMLElement;
 use Vanilo\Netopia\Models\NetopiaAction;
 use Vanilo\Payment\Contracts\PaymentResponse;
+use Vanilo\Payment\Contracts\PaymentStatus;
+use Vanilo\Payment\Models\PaymentStatusProxy;
 
 class NetopiaPaymentResponse implements PaymentResponse
 {
@@ -35,6 +38,8 @@ class NetopiaPaymentResponse implements PaymentResponse
     private float $submittedAmount;
 
     private float $processedAmount;
+
+    private ?PaymentStatus $status = null;
 
     public function __construct(SimpleXMLElement $xml)
     {
@@ -93,6 +98,47 @@ class NetopiaPaymentResponse implements PaymentResponse
     public function getPaymentId(): string
     {
         return $this->paymentId;
+    }
+
+    public function getStatus(): PaymentStatus
+    {
+        if (null ===$this->status) {
+            if (!$this->wasSuccessful()) {
+                $this->status = PaymentStatusProxy::DECLINED();
+            } else {
+                switch ($this->action) {
+                    case NetopiaAction::PAID:
+                        $this->status = PaymentStatusProxy::PAID();
+                        break;
+                    case NetopiaAction::CONFIRMED:
+                        $this->status = PaymentStatusProxy::AUTHORIZED();
+                        break;
+                    case NetopiaAction::CANCELED:
+                        $this->status = PaymentStatusProxy::CANCELLED();
+                        break;
+                    case NetopiaAction::NEW:
+                    case NetopiaAction::UNKNOWN:
+                        $this->status = PaymentStatusProxy::PENDING();
+                        break;
+                    case NetopiaAction::PAID_PENDING:
+                    case NetopiaAction::CONFIRMED_PENDING:
+                        $this->status = PaymentStatusProxy::ON_HOLD();
+                        break;
+                    case NetopiaAction::CREDIT:
+                        $this->status = PaymentStatusProxy::REFUNDED();
+                        break;
+                    default:
+                        $this->status = PaymentStatusProxy::PENDING();
+                }
+            }
+        }
+
+        return $this->status;
+    }
+
+    public function getNativeStatus(): Enum
+    {
+        return $this->action;
     }
 
     /**

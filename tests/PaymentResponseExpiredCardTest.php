@@ -16,6 +16,7 @@ namespace Vanilo\Netopia\Tests;
 
 use Vanilo\Netopia\Messages\NetopiaPaymentResponse;
 use Vanilo\Netopia\Models\NetopiaAction;
+use Vanilo\Payment\Models\PaymentStatus;
 
 class PaymentResponseExpiredCardTest extends TestCase
 {
@@ -98,6 +99,13 @@ class PaymentResponseExpiredCardTest extends TestCase
         $response = $this->loadExpiredCardResponse();
         $this->assertInstanceOf(NetopiaAction::class, $response->action);
         $this->assertTrue($response->action->equals(NetopiaAction::PAID()));
+    }
+
+    /** @test */
+    public function the_status_is_declined()
+    {
+        $response = $this->loadExpiredCardResponse();
+        $this->assertEquals(PaymentStatus::DECLINED, $response->getStatus()->value());
     }
 
     private function loadExpiredCardResponse(): NetopiaPaymentResponse
