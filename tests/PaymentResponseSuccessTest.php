@@ -84,7 +84,7 @@ class PaymentResponseSuccessTest extends TestCase
     public function the_status_is_authorized()
     {
         $response = $this->loadSuccessResponse();
-        $this->assertEquals(PaymentStatus::AUTHORIZED, $response->getStatus()->value());
+        $this->assertEquals(PaymentStatus::PAID, $response->getStatus()->value());
     }
 
     /** @test */
