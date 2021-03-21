@@ -107,28 +107,81 @@ class NetopiaPaymentResponse implements PaymentResponse
                 $this->status = PaymentStatusProxy::DECLINED();
             } else {
                 switch ($this->action) {
+
                     case NetopiaAction::PAID:
-                        $this->status = PaymentStatusProxy::PAID();
-                        break;
-                    case NetopiaAction::CONFIRMED:
+                        /** From original documentation:
+                         *   Deschisa – atributul elementului action este paid . Banii sunt rezervati pe
+                         *   card, nu a avut loc transfer bancar
+                         */
                         $this->status = PaymentStatusProxy::AUTHORIZED();
                         break;
+
+                    case NetopiaAction::CONFIRMED:
+                        /** From original documentation:
+                         *    Platita/Confirmata - atributul elementului action este confirmed. Banii
+                         *    rezervati pe card au fost transferati si intra in procesul de decontare. Daca
+                         *    mobilpay nu primeste raspuns de la pagina ta de confirmare, tranzactia
+                         *    ramane in stare Platita
+                         */
+                        if ($this->processedAmount < $this->submittedAmount) {
+                            $this->status = PaymentStatusProxy::PARTIALLY_PAID();
+                        } else {
+                            $this->status = PaymentStatusProxy::PAID();
+                        }
+                        break;
+
                     case NetopiaAction::CANCELED:
+                        /** From original documentation:
+                         *    Anulata - atributul elementului action este canceled . Banii rezervati pe
+                         *    card sunt eliberati.
+                         */
                         $this->status = PaymentStatusProxy::CANCELLED();
                         break;
+
                     case NetopiaAction::NEW:
                     case NetopiaAction::UNKNOWN:
+                        /** From original documentation:
+                         *    Noua - clientul a ajuns in pagina de plata, dar nu a introdus detaliile
+                         *    necesare pentru initierea platii
+                         */
                         $this->status = PaymentStatusProxy::PENDING();
                         break;
+
                     case NetopiaAction::PAID_PENDING:
-                    case NetopiaAction::CONFIRMED_PENDING:
+                        /** From original documentation:
+                         *    In asteptare - atributul elementului action este paid_pending.
+                         *    Tranzactia este intr-un proces de verificare in ceea ce priveste riscul de
+                         *    frauda. Banii sunt rezervati pe card, nu a avut loc transfer bancar. Este
+                         *    necesara capturarea banilor!
+                         */
                         $this->status = PaymentStatusProxy::ON_HOLD();
                         break;
-                    case NetopiaAction::CREDIT:
-                        $this->status = PaymentStatusProxy::REFUNDED();
+
+                    case NetopiaAction::CONFIRMED_PENDING:
+                        /** From original documentation:
+                         *    In verificare – atributul elementului action este confirmed_pending.
+                         *    Tranzactia este intr-un proces de verificare in ceea ce priveste riscul de
+                         *    frauda. Banii sunt luati de pe card. Daca este acceptata, plata intra in stare
+                         *    Confirmata si vei fi notificat cu un action = “confirmed”. In caz contrar,
+                         *    plata intra in stare Frauda
+                         */
+                        $this->status = PaymentStatusProxy::ON_HOLD();
                         break;
-                    default:
-                        $this->status = PaymentStatusProxy::PENDING();
+
+                    case NetopiaAction::CREDIT:
+                        /** From original documentation:
+                         *    Creditata - atributul elementului action este credit . Banii sunt returnati
+                         *    clientului (in totalitate sau partial)
+                         */
+                        if ($this->processedAmount < $this->submittedAmount) {
+                            $this->status = PaymentStatusProxy::PARTIALLY_REFUNDED();
+                        } else {
+                            $this->status = PaymentStatusProxy::REFUNDED();
+                        }
+                        break;
+
+                        default:
+                            $this->status = PaymentStatusProxy::PENDING();
                 }
             }
         }
