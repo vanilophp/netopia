@@ -107,7 +107,6 @@ class NetopiaPaymentResponse implements PaymentResponse
                 $this->status = PaymentStatusProxy::DECLINED();
             } else {
                 switch ($this->action) {
-
                     case NetopiaAction::PAID:
                         /** From original documentation:
                          *   Deschisa – atributul elementului action este paid . Banii sunt rezervati pe
