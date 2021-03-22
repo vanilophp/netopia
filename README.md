@@ -71,7 +71,9 @@ It's completely untested at the moment.
 
 - [X] Successful Payment. Covered.
 - [X] Expired Card. Covered.
-- [ ] Insufficient founds. No unit test coverage.
+- [X] Partial refund. Covered.
+- [X] Complate refund. Covered.
+- [ ] Insufficient funds. No unit test coverage.
 - [ ] Incorrect CVV2/CCV. No unit test coverage.
 - [ ] Transaction not permitted (eg. card not enrolled). No unit test coverage.
 - [ ] Risky card detected (eg. stolen card). No unit test coverage.
