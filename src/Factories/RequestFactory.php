@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Vanilo\Netopia\Factories;
 
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Messages\NetopiaPaymentRequest;
 use Vanilo\Payment\Contracts\Payment;
@@ -19,8 +21,8 @@ final class RequestFactory
             $this->publicCertificatePath,
             $this->privateCertificatePath,
             $this->isSandbox,
-            $this->returnUrl,
-            $this->confirmUrl
+            $this->absUrl($this->returnUrl),
+            $this->absUrl($this->confirmUrl)
         );
         $billPayer = $payment->getPayable()->getBillPayer();
 
@@ -40,11 +42,11 @@ final class RequestFactory
             );
 
         if (isset($options['confirm_url'])) {
-            $result->setConfirmUrl($options['confirm_url']);
+            $result->setConfirmUrl($this->absUrl($options['confirm_url']));
         }
 
         if (isset($options['return_url'])) {
-            $result->setReturnUrl($options['return_url']);
+            $result->setReturnUrl($this->absUrl($options['return_url']));
         }
 
         if (isset($options['view'])) {
@@ -52,5 +54,14 @@ final class RequestFactory
         }
 
         return $result;
+    }
+
+    private function absUrl(string $uri): string
+    {
+        if (!Str::startsWith($uri, 'http')) {
+            $uri = URL::to($uri);
+        }
+
+        return $uri;
     }
 }
