@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<order type="card" id="2oeffmxgU0ht-659C2B_F" timestamp="20210508142418">
+    <signature>CLTN-UA6F-T67W-5BPB-CH82</signature>
+    <invoice currency="RON" amount="375.00">
+        <details>Order no. 60M-140I-M6C1</details>
+        <contact_info>
+            <billing type="person">
+                <first_name>Kristin</first_name>
+                <last_name>Babbaba</last_name>
+                <email>kristingbbb@waffan.com</email>
+                <address>Garda de Sus, Strada Varciorogului nr 375</address>
+                <mobile_phone>0744000001</mobile_phone>
+            </billing>
+        </contact_info>
+    </invoice>
+    <url>
+        <confirm>https://vanilo.shop/_example/netopia/confirm</confirm>
+        <return>https://vanilo.shop/_example/netopia/return</return>
+    </url>
+    <mobilpay timestamp="20210508173030" crc="0d37f453964c29606d631a1efe0283e2">
+        <action>paid</action>
+        <customer type="person">
+            <first_name><![CDATA[Kristin]]></first_name>
+            <last_name><![CDATA[Babbaba]]></last_name>
+            <address><![CDATA[Garda+deSus%2+Strada+Varciorogului+nr+375]]></address>
+            <email><![CDATA[kristingbbb%40waffan.com]]></email>
+            <mobile_phone><![CDATA[0744000001]]></mobile_phone>
+        </customer>
+        <purchase>165585248</purchase>
+        <original_amount>375.00</original_amount>
+        <processed_amount>375.00</processed_amount>
+        <current_payment_count>1</current_payment_count>
+        <pan_masked>5****1264</pan_masked>
+        <payment_instrument_id>32132947</payment_instrument_id>
+        <installments>0</installments>
+        <error code="35"><![CDATA[ ]]></error>
+    </mobilpay>
+</order>

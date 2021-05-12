@@ -7,6 +7,7 @@ namespace Vanilo\Netopia\Messages;
 use Konekt\Enum\Enum;
 use SimpleXMLElement;
 use Vanilo\Netopia\Models\NetopiaAction;
+use Vanilo\Netopia\Models\NetopiaErrorCode;
 use Vanilo\Payment\Contracts\PaymentResponse;
 use Vanilo\Payment\Contracts\PaymentStatus;
 use Vanilo\Payment\Models\PaymentStatusProxy;
@@ -226,9 +227,12 @@ class NetopiaPaymentResponse implements PaymentResponse
     private function obtainMessage(SimpleXMLElement $xml): string
     {
         if (isset($xml->mobilpay->error[0])) {
-            return trim((string) $xml->mobilpay->error[0]);
+            $message = trim((string) $xml->mobilpay->error[0]);
+            if (!empty($message)) {
+                return $message;
+            }
         }
 
-        return $this->action->label();
+        return NetopiaErrorCode::create($this->errorCode)->label();
     }
 }
