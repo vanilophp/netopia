@@ -78,8 +78,6 @@ class NetopiaReturnController extends Controller
     // it gets called via POST and is a server-to-server call.
     public function confirm(Request $request)
     {
-        Log::debug('Netopia confirmation', $request->toArray());
-
         $response = PaymentGateways::make('netopia')->processPaymentResponse($request);
         $payment  = Payment::findByPaymentId($response->getPaymentId());
 
@@ -88,22 +86,10 @@ class NetopiaReturnController extends Controller
             return new ErrorResponseToNetopia(404, 'Could not locate payment with id ' . $response->getPaymentId());
         }
 
-        if ($response->wasSuccessful()) {
-            $payment->amount_paid = $response->getAmountPaid();
-            if ($response->getAmountPaid() < $payment->getAmount()) {
-                $payment->status = PaymentStatus::PARTIALLY_PAID();
-                $payment->save();
-                event(new PaymentPartiallyReceived($payment, $response->getAmountPaid()));
-            } else {
-                $payment->status = PaymentStatus::PAID();
-                $payment->save();
-                event(new PaymentCompleted($payment));
-            }
-        } else {
-            $payment->status = PaymentStatus::DECLINED();
-            $payment->save();
-            event(new PaymentDeclined($payment));
-        }
+        $handler = new PaymentResponseHandler($payment, $response);
+        $handler->writeResponseToHistory();
+        $handler->updatePayment();
+        $handler->fireEvents();
 
         // Returns a success response in the format Netopia expects
         return new SuccessResponseToNetopia();
