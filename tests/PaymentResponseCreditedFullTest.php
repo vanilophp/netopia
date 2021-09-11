@@ -48,7 +48,7 @@ class PaymentResponseCreditedFullTest extends TestCase
     public function it_correctly_returns_the_paid_amount_in_the_original_currency()
     {
         $response = $this->loadCreditedFullResponse();
-        $this->assertEquals(10.00, $response->getAmountPaid());
+        $this->assertEquals(-10.00, $response->getAmountPaid());
     }
 
     /** @test */

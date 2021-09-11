@@ -80,20 +80,22 @@ class NetopiaPaymentResponse implements PaymentResponse
 
     public function getAmountPaid(): ?float
     {
+        $sign = ($this->action->isCredit() || $this->action->isCanceled()) ? -1 : 1;
+
         /** Settlement and original currencies match, the happy path: */
         if ($this->submittedAmountInOriginalCurrency === $this->submittedAmount) {
-            return $this->processedAmount;
+            return $sign * $this->processedAmount;
         }
 
         /** Currencies differ, but a full payment was made: */
         if ($this->processedAmount === $this->submittedAmount) {
-            return $this->submittedAmountInOriginalCurrency;
+            return $sign * $this->submittedAmountInOriginalCurrency;
         }
 
         /** Currencies differ, partial payment was made. Calculate back: */
         $rate = $this->submittedAmount / $this->submittedAmountInOriginalCurrency;
 
-        return round($this->processedAmount / $rate, 2);
+        return $sign * round($this->processedAmount / $rate, 2);
     }
 
     public function getPaymentId(): string

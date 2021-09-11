@@ -60,7 +60,6 @@ if we find to cause of the issue, let's use actual Netopia keys.
 Netopia returns the following data which we should record locally:
 
 - `pan_masked` (card number digits eg. 4****2806)
-- `error_code` - it's recorded as int, but is private. Use enum (see point 4)
 
 ### 6. SMS Payment
 

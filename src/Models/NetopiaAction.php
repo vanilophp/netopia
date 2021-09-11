@@ -25,6 +25,15 @@ use Konekt\Enum\Enum;
  * @method static NetopiaAction CONFIRMED()
  * @method static NetopiaAction CREDIT()
  * @method static NetopiaAction CANCELED()
+ * 
+ * @method bool isUnknown()
+ * @method bool isNew()
+ * @method bool isPaidPending()
+ * @method bool isConfirmedPending()
+ * @method bool isPaid()
+ * @method bool isConfirmed()
+ * @method bool isCredit()
+ * @method bool isCanceled()
  */
 class NetopiaAction extends Enum
 {
