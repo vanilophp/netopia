@@ -25,7 +25,7 @@ use Konekt\Enum\Enum;
  * @method static NetopiaAction CONFIRMED()
  * @method static NetopiaAction CREDIT()
  * @method static NetopiaAction CANCELED()
- * 
+ *
  * @method bool isUnknown()
  * @method bool isNew()
  * @method bool isPaidPending()
