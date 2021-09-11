@@ -1,8 +1,9 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2021-XX-YY
+## 1.1.0
+##### 2021-09-11
 
+- Requires Vanilo 2.2
 - Added mapping of payment response result to PaymentStatus
 - Added NativeStatus (returns NetopiaAction) to PaymentResponse
 - Added automatic conversion to full App URLs when return/confirm URL are paths
