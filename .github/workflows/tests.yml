@@ -10,8 +10,8 @@ jobs:
       matrix:
         php: ['8.0', '8.1']
         laravel: ['9.0', '9.17']
-        enum: ['3', '4']
-    name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }} Enum ${{ matrix.enum }}
+        vanilo: ['3.0', '3.1']
+    name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }} Vanilo ${{ matrix.vanilo }}
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -23,7 +23,7 @@ jobs:
           tools: composer:v2
       - name: Lock Package Versions
         run: |
-          composer require "konekt/enum:${{ matrix.enum }}.*" --no-update -v
+          composer require "vanilo/framework:${{ matrix.vanilo }}.*" --no-update -v
           composer require "laravel/framework:${{ matrix.laravel }}.*" --no-update -v
       - name: Composer Install
         run: composer install --prefer-dist --no-progress --no-interaction

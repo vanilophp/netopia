@@ -11,6 +11,27 @@
 - Added Enum v4 support
 - Changed minimum Concord version to v1.11
 
+## 1.3.0
+##### 2022-06-15
+
+- Dropped Laravel 8 support
+- Dropped PHP 7.4 support
+- Dropped Vanilo 2.x support
+
+## 1.2.0
+##### 2022-06-15
+
+- Dropped Laravel 6-7 support
+- Changed minimum Laravel version to 8.22.1, to enforce the [CVE-2021-21263](https://blog.laravel.com/security-laravel-62011-7302-8221-released) security patch
+- Added Laravel 9 support
+- Added Vanilo 3.x support
+
+## 1.1.1
+##### 2022-06-15
+
+- Locked Enum to v3 only (`NetopiaAction` is incompatible with Enum v4 due to missing `bool` type on `$unknownValues...` attribute)
+- Tested with PHP 8.1 (works)
+
 ## 1.1.0
 ##### 2021-09-11
 
