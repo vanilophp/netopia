@@ -42,9 +42,9 @@ jobs:
           extensions: mbstring, json, sqlite3
           tools: composer:v2
       - name: Lock Package Versions
-          run: |
-            composer require "vanilo/framework:${{ matrix.vanilo }}.*" --no-update -v
-            composer require "laravel/framework:${{ matrix.laravel }}.*" --no-update -v
+        run: |
+          composer require "vanilo/framework:${{ matrix.vanilo }}.*" --no-update -v
+          composer require "laravel/framework:${{ matrix.laravel }}.*" --no-update -v
       - name: Composer Install
         run: composer install --prefer-dist --no-progress --no-interaction
       - name: Create Database
