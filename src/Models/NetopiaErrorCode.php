@@ -48,7 +48,7 @@ final class NetopiaErrorCode extends Enum
     public const DUPLICATE_REQUEST = 56;
     public const GENERIC_ERROR = 99;
 
-    protected static $unknownValuesFallbackToDefault = true;
+    protected static bool $unknownValuesFallbackToDefault = true;
 
     protected static array $labels = [];
 
