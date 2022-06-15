@@ -1,11 +1,12 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2022-06-XX
+## 2.0.0
+##### 2022-06-15
 
 - Added Enum v4 support
 - Dropped Enum v3 support
 - Changed minimum Concord version to v1.11
+- Rest is identical with 1.3
 
 ## 1.3.0
 ##### 2022-06-15
