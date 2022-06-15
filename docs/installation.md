@@ -41,6 +41,8 @@ gradual upgrade path, according to the version compatibility chart below:
 As you can see, Enum is the cornerstone of the backwards compatibility,
 thus the [major version bump](https://semver.org/) along with the Enum v4 support.  
 
+Bugfixes and important changes will be backported to the 1.x branch as long as Vanilo
+supports Enum v3.
 
 ---
 

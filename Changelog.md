@@ -3,12 +3,8 @@
 ## Unreleased
 ##### 2022-06-XX
 
-- Requires Vanilo 3.x
-- Dropped PHP 7.4 support
-- Dropped Laravel 6-8 support
-- Added Laravel 9 support
-- Added PHP 8.1 support
 - Added Enum v4 support
+- Dropped Enum v3 support
 - Changed minimum Concord version to v1.11
 
 ## 1.3.0
