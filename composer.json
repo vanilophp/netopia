@@ -21,6 +21,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "konekt/concord": "^1.6",
+        "konekt/enum": "^3.0",
         "vanilo/payment": "^2.2",
         "vanilo/contracts": "^2.2",
         "ext-dom": "*",

@@ -1,5 +1,11 @@
 # Vanilo Netopia Module Changelog
 
+## Unreleased
+##### 2022-06-XX
+
+- Locked Enum to v3 only (`NetopiaAction` is incompatible with Enum v4 due to missing `bool` type on `$unknownValues...` attribute)
+- Tested for PHP 8.1 support
+
 ## 1.1.0
 ##### 2021-09-11
 
