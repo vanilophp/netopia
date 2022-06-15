@@ -47,5 +47,5 @@ class NetopiaAction extends Enum
     public const CREDIT = 'credit';
     public const CANCELED = 'canceled';
 
-    protected static $unknownValuesFallbackToDefault = true;
+    protected static bool $unknownValuesFallbackToDefault = true;
 }
