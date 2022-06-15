@@ -8,29 +8,9 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        php: ['7.4', '8.0', '8.1']
-        laravel: ['8.22.1', '8.83', '9.0', '9.17']
-        vanilo: ['2.2', '3.0']
-        exclude:
-          - php: '7.4'
-            laravel: '9.0'
-          - php: '7.4'
-            laravel: '9.0'
-          - php: '7.4'
-            laravel: '9.17'
-          - php: '8.1'
-            laravel: '8.22.1'
-          - vanilo: '2.2'
-            laravel: '9.0'
-          - vanilo: '2.2'
-            laravel: '9.17'
-          - vanilo: '3.0'
-            php: '7.4'
-          - vanilo: '3.0'
-            laravel: '8.22.1'
-          - vanilo: '3.0'
-            laravel: '8.83'
-
+        php: ['8.0', '8.1']
+        laravel: ['9.0', '9.17']
+        vanilo: ['3.0', '3.1']
     name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }} Vanilo ${{ matrix.vanilo }}
     steps:
       - name: Checkout
