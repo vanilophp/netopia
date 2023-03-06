@@ -34,6 +34,7 @@ final class ResponseFactory
         $encryptedData = base64_decode($request->get('data'));
         $envelopeKey = base64_decode($request->get('env_key'));
         $xmlResponse = null;
+        // @see https://github.com/mobilpay/composer/issues/6
         if (!openssl_open($encryptedData, $xmlResponse, $envelopeKey, $privateKey, 'RC4')) {
             throw new NetopiaDecryptionException('Failed to decrypt the message');
         }

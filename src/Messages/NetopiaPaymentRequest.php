@@ -164,9 +164,10 @@ class NetopiaPaymentRequest implements PaymentRequest
         }
 
         $encData = null;
-        $envKeys = null;
+        $envKeys = [];
         $publicKey = [$publicKey];
 
+        // https://github.com/mobilpay/composer/issues/6
         openssl_seal($this->getXml(), $encData, $envKeys, $publicKey, 'RC4');
 
         return [
