@@ -39,5 +39,14 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-interaction
       - name: Create Database
         run: mkdir -p database && touch database/database.sqlite
+      - name: Enable Legacy Ciphers in OpenSSL 3
+        run: |
+          cp /etc/ssl/openssl.cnf > ./custom_openssl.cnf
+          sudo sed -i '/^\default = default_sect/a legacy = legacy_sect' ./custom_openssl.cnf
+          sudo sed -i '/^\[default_sect\]/a activate = 1' ./custom_openssl.cnf
+          sudo echo "[legacy_sect]" >> ./custom_openssl.cnf
+          sudo echo "activate = 1" >> ./custom_openssl.cnf
+          OPENSSL_CONF="$(pwd)/custom_openssl.cnf"
+          export OPENSSL_CONF
       - name: Run Tests
         run: php vendor/bin/phpunit --testdox
