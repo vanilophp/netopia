@@ -46,6 +46,6 @@ jobs:
           sudo sed -i '/^\[default_sect\]/a activate = 1' ./custom_openssl.cnf
           sudo echo "[legacy_sect]" >> ./custom_openssl.cnf
           sudo echo "activate = 1" >> ./custom_openssl.cnf
-          echo "OPENSSL_CONF="$(pwd)/custom_openssl.cnf" >> $GITHUB_ENV
+          echo "OPENSSL_CONF=$(pwd)/custom_openssl.cnf" >> $GITHUB_ENV
       - name: Run Tests
         run: php vendor/bin/phpunit --testdox
