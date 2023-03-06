@@ -51,4 +51,6 @@ jobs:
           cat $OPENSSL_CONF
           echo "OPENSSL_CONF=${OPENSSL_CONF}" >> $GITHUB_ENV
       - name: Run Tests
-        run: php vendor/bin/phpunit --testdox
+        run: |
+          echo $OPENSSL_CONF
+          php vendor/bin/phpunit --testdox
