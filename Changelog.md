@@ -15,6 +15,17 @@
 - Changed minimum Concord version to v1.11
 - Rest is identical with 1.3
 
+---
+
+## 1.X Series
+
+## 1.4.0
+##### 2023-05-26
+
+- Added PHP 8.2 support
+- Added Laravel 10 support
+- Bumped minimal Laravel version to v9.2
+
 ## 1.3.0
 ##### 2022-06-15
 
