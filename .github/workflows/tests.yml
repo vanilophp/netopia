@@ -14,6 +14,8 @@ jobs:
         exclude:
           - php: '8.0'
             laravel: '10.0'
+          - vanilo: '3.0'
+            laravel: '10.0'
     name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }} Vanilo ${{ matrix.vanilo }}
     steps:
       - name: Checkout
