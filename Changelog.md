@@ -4,6 +4,7 @@
 ##### 2023-XX-YY
 
 - Added PHP 8.2 support
+- Added Laravel 10 support
 - Bumped minimal Laravel version to v9.2
 
 ## 1.3.0
