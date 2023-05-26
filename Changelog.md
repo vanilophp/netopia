@@ -1,5 +1,17 @@
 # Vanilo Netopia Module Changelog
 
+## Unreleased
+##### 2023-XX-YY
+
+- Added Vanilo 4 support
+- Dropped Vanilo 3 support
+- Dropped PHP 8.0 and 8.1 support
+- Dropped Laravel 9 support
+
+---
+
+## 2.X Series
+
 ## 2.1.0
 ##### 2023-05-26
 
