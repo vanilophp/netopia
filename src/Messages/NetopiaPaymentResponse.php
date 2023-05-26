@@ -182,8 +182,8 @@ class NetopiaPaymentResponse implements PaymentResponse
                         }
                         break;
 
-                        default:
-                            $this->status = PaymentStatusProxy::PENDING();
+                    default:
+                        $this->status = PaymentStatusProxy::PENDING();
                 }
             }
         }
