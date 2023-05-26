@@ -75,8 +75,11 @@ class HttpSuccessResponseTest extends TestCase
 EOT;
 
         $cert = file_get_contents(__DIR__ . '/keys/server.crt');
-        $pk1 = openssl_get_publickey($cert);
-        openssl_seal($xml, $sealed, $ekeys, [$pk1], 'RC4');
+        $pk1 = openssl_pkey_get_public($cert);
+        $ekeys = [];
+        if (!openssl_seal($xml, $sealed, $ekeys, [$pk1], 'RC4')) {
+            throw new \RuntimeException('OpenSSL error: ' . openssl_error_string());
+        }
 
         $payload = ['env_key' => base64_encode($ekeys[0]), 'data' => base64_encode($sealed)];
         $this->post('/confirm', $payload)

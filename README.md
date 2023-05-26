@@ -12,6 +12,28 @@ This library implements the [Netopia Payment Processor](https://netopia-payments
 Being a [Concord Module](https://konekt.dev/concord/1.x/modules) it is intended to be used by
 Laravel Applications.
 
+## IMPORTANT
+
+Netopia uses the RC4 cipher algo for its messages. In recent (~2023) OpenSSL installations this cipher
+is disabled by default.
+
+In order to use this library **you must enable legacy options for OpenSSL 3**:
+
+1. Find and open the file at /etc/ssl/openssl.cnf
+2. At the `[default_sect]` section change it to the following:
+    ```ini
+    [default_sect]
+    activate = 1
+    [legacy_sect]
+    activate = 1
+    ```
+3. Then find the `[provider_sect]` and change it to the following:
+    ```ini
+    [provider_sect]
+    default = default_sect
+    legacy = legacy_sect
+    ```
+
 ## Documentation
 
 Refer to the markdown files in the [docs](docs/) folder.
