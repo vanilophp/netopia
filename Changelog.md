@@ -1,7 +1,7 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2023-XX-YY
+## 2.1.0
+##### 2023-05-26
 
 - Added PHP 8.2 support
 - Bumped minimal Laravel version to v9.2
