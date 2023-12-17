@@ -1,6 +1,6 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
+## 2.1.1
 ##### 2023-XX-YY
 
 - Added PHP 8.3 support
