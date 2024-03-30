@@ -105,7 +105,7 @@ class NetopiaPaymentResponse implements PaymentResponse
 
     public function getStatus(): PaymentStatus
     {
-        if (null ===$this->status) {
+        if (null === $this->status) {
             if (!$this->wasSuccessful()) {
                 $this->status = PaymentStatusProxy::DECLINED();
             } else {
