@@ -4,9 +4,11 @@
 ##### 2023-XX-YY
 
 - Added Vanilo 4 support
+- Added Laravel 11 support
 - Dropped Vanilo 3 support
 - Dropped PHP 8.0 and 8.1 support
 - Dropped Laravel 9 support
+- Changed the minimal Laravel version requirement to v10.43
 
 ---
 

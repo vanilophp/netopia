@@ -78,6 +78,11 @@ class NetopiaPaymentResponse implements PaymentResponse
         return $this->paymentId;
     }
 
+    public function getTransactionAmount(): float
+    {
+        return $this->getAmountPaid();
+    }
+
     public function getAmountPaid(): ?float
     {
         $sign = ($this->action->isCredit() || $this->action->isCanceled()) ? -1 : 1;

@@ -57,6 +57,12 @@ class NetopiaPaymentRequest implements PaymentRequest
         return true;
     }
 
+    // What is this method for?
+    public function getRemoteId(): ?string
+    {
+        return null;
+    }
+
     public function setPaymentId(string $paymentId): self
     {
         $this->paymentId = $paymentId;
