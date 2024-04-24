@@ -42,7 +42,7 @@ class NetopiaPaymentGateway implements PaymentGateway
 
     public static function svgIcon(): string
     {
-        return self::$svg ??= file_get_contents(__DIR__ . '/../../resources/logo.svg');
+        return self::$svg ??= file_get_contents(__DIR__ . '/resources/logo.svg');
     }
 
     public function createPaymentRequest(Payment $payment, Address $shippingAddress = null, array $options = []): PaymentRequest
