@@ -44,4 +44,9 @@ class SomeAddress implements Address
     {
         return '23 Strandvej';
     }
+
+    public function getAddress2(): ?string
+    {
+        return null;
+    }
 }
