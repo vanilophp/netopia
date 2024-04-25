@@ -2,7 +2,7 @@
 
 The typical Vanilo Payments workflow with Netopia consists of the following steps:
 
-1. Create an **Order** (or any ["Payable"](https://vanilo.io/docs/2.x/payments#payables))
+1. Create an **Order** (or any ["Payable"](https://vanilo.io/docs/4.x/payments#payables))
 2. Obtain the **payment method** from the checkout<sup>*</sup>
 3. Get the appropriate **gateway instance** associated with the payment method
 4. Generate a **payment request** using the gateway
