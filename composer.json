@@ -23,8 +23,8 @@
         "konekt/concord": "^1.13",
         "konekt/enum": "^4.2",
         "laravel/framework": "^10.43|^11.0",
-        "vanilo/contracts": "^4.0",
-        "vanilo/payment": "^4.0",
+        "vanilo/contracts": "^4.1",
+        "vanilo/payment": "^4.1",
         "ext-dom": "*",
         "ext-openssl": "*",
         "ext-simplexml": "*"

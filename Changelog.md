@@ -4,6 +4,7 @@
 ##### 2024-XX-YY
 
 - Added support for passing `buttonText` and `buttonClass` variables to payment request's getHtmlSnippet() method
+- Changed minimum Vanilo requirement to v4.1
 
 ## 3.0.0
 ##### 2024-04-25

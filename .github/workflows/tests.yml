@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         php: ['8.2', '8.3']
-        laravel: ['10.43', '10.48', '11.0', '11.5']
-        vanilo: ['4.0']
+        laravel: ['10.43', '10.48', '11.0', '11.9']
+        vanilo: ['4.1']
     name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }} Vanilo ${{ matrix.vanilo }}
     steps:
       - name: Checkout
