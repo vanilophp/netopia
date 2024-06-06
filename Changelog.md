@@ -4,6 +4,7 @@
 ##### 2024-XX-YY
 
 - Added support for passing `buttonText` and `buttonClass` variables to payment request's getHtmlSnippet() method
+- Added transaction handler with retry payment support
 - Changed minimum Vanilo requirement to v4.1
 
 ## 3.0.0

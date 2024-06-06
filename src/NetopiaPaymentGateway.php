@@ -19,6 +19,7 @@ use Vanilo\Contracts\Address;
 use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Factories\RequestFactory;
 use Vanilo\Netopia\Factories\ResponseFactory;
+use Vanilo\Netopia\Transaction\Handler;
 use Vanilo\Payment\Contracts\Payment;
 use Vanilo\Payment\Contracts\PaymentGateway;
 use Vanilo\Payment\Contracts\PaymentRequest;
@@ -34,6 +35,8 @@ class NetopiaPaymentGateway implements PaymentGateway
     private static ?string $svg = null;
 
     private ?RequestFactory $requestFactory = null;
+
+    private ?Handler $transactionHandler = null;
 
     public static function getName(): string
     {
@@ -68,7 +71,11 @@ class NetopiaPaymentGateway implements PaymentGateway
 
     public function transactionHandler(): ?TransactionHandler
     {
-        return null;
+        if (null === $this->transactionHandler) {
+            $this->transactionHandler = new Handler($this);
+        }
+
+        return $this->transactionHandler;
     }
 
     public function isOffline(): bool
