@@ -50,7 +50,7 @@ form:
 
         <h3>Payment</h3>
 
-        {!! $paymentRequest->getHtmlSnippet(); !!}
+        {!! $paymentRequest->getHtmlSnippet(['btnText' => 'Proceed to Payment', 'btnClass' => 'btn btn-primary']); !!}
     </div>
 @endsection
 ```

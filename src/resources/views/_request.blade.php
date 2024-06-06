@@ -9,7 +9,7 @@
                  onload="javascript:document.netopia.submit()">
         </p>
     @endif
-        <button type="submit">
-            {{ __('Proceed to Payment') }}
+        <button type="submit" @unless($buttonClass)class="{{ $buttonClass }}"@endunless>
+            {{ $buttonText ?? __('Proceed to Payment') }}
         </button>
 </form>

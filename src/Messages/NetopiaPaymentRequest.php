@@ -46,7 +46,9 @@ class NetopiaPaymentRequest implements PaymentRequest
                 $this->encryptData(),
                 [
                     'url' => $this->getUrl(),
-                    'autoRedirect' => $options['autoRedirect'] ?? false
+                    'autoRedirect' => $options['autoRedirect'] ?? false,
+                    'buttonText' => $options['buttonText'] ?? null,
+                    'buttonClass' => $options['buttonClass'] ?? false,
                 ]
             )
         )->render();
