@@ -76,6 +76,19 @@ class RequestFactoryTest extends TestCase
     }
 
     /** @test */
+    public function button_text_and_button_class_can_be_passed_to_the_html_snippet()
+    {
+        $order = Order::create(['currency' => 'EUR', 'amount' => 37.50]);
+        $payment = PaymentFactory::createFromPayable($order, $this->method);
+        $html = $this->createTestFactory()
+            ->create($payment)
+            ->getHtmlSnippet(['buttonText' => 'Giovanni Macaroni', 'buttonClass' => 'ilButton ilButtonAzzuro']);
+
+        $this->assertMatchesRegularExpression('/<button\b[^>]*>\s*Giovanni Macaroni\s*<\/button>/i', $html);
+        $this->assertStringContainsString('class="ilButton ilButtonAzzuro"', $html);
+    }
+
+    /** @test */
     public function it_converts_return_and_confirm_urls_to_full_urls_if_only_paths_are_specified()
     {
         $order = Order::create(['currency' => 'RON', 'amount' => 19.99]);
