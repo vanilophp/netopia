@@ -1,7 +1,7 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2024-XX-YY
+## 3.1.0
+##### 2024-06-06
 
 - Added support for passing `buttonText` and `buttonClass` variables to payment request's getHtmlSnippet() method
 - Added transaction handler with retry payment support

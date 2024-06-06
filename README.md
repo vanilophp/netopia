@@ -87,3 +87,7 @@ Netopia returns the following data which we should record locally:
 
 Netopia supports SMS payments. Likely won't be implemented here as it's more for micro payments,
 but hell, who knows 🤷
+
+### 7. Refunds
+
+Netopia supports direct credit (refund) and capture operations via its [SOAP API](http://www.mobilpay.ro/api/merchant?wsdl)

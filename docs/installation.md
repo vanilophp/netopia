@@ -37,6 +37,7 @@ requirements we have added a gradual upgrade path, according to the version comp
 | 2.0                   | 8.0 - 8.1 | 3.x       | 4.x  | 9.x           |
 | 2.1                   | 8.0 - 8.3 | 3.x       | 4.x  | 9.2 - 10.x    |
 | 3.0                   | 8.2 - 8.3 | 4.x       | 4.2+ | 10.43+ - 11.x |
+| 3.1                   | 8.2 - 8.3 | 4.1+      | 4.2+ | 10.43+ - 11.x |
 
 ---
 
