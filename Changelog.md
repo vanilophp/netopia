@@ -1,11 +1,5 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2024-XX-YY
-
-- Added PHP 8.4 support
-- Added Vanilo 4.2 support
-
 ## 3.1.0
 ##### 2024-06-06
 
