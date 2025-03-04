@@ -48,7 +48,7 @@ class NetopiaPaymentGateway implements PaymentGateway
         return self::$svg ??= file_get_contents(__DIR__ . '/resources/logo.svg');
     }
 
-    public function createPaymentRequest(Payment $payment, Address $shippingAddress = null, array $options = []): PaymentRequest
+    public function createPaymentRequest(Payment $payment, ?Address $shippingAddress = null, array $options = []): PaymentRequest
     {
         if (null === $this->requestFactory) {
             $this->requestFactory = new RequestFactory(
