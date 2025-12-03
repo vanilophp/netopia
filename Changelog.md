@@ -1,7 +1,7 @@
 # Vanilo Netopia Module Changelog
 
-## Unreleased
-##### 2025-XX-YY
+## 3.2.0
+##### 2025-12-03
 
 - Added Vanilo 5 support
 - Added Laravel 12 support
