@@ -8,8 +8,6 @@
 - Added PHP 8.5 support
 - Changed the minimum Laravel version requirements to v10.48, v11.46.2 and v12.38 respectively
 
----
-
 ## 3.1.0
 ##### 2024-06-06
 
