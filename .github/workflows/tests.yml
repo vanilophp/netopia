@@ -12,19 +12,9 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        php: ['8.3', '8.4', '8.5']
-        laravel: ['10.48', '11.46', '11.50', '12.50', '12.56', '13.0', '13.8']
-        vanilo: ['5.0', '5.1', '5.2']
-        exclude:
-          - laravel: '13.0'
-            vanilo: '5.0'
-          - laravel: '13.8'
-            vanilo: '5.0'
-          - laravel: '13.0'
-            vanilo: '5.1'
-          - laravel: '13.8'
-            vanilo: '5.1'
-    name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }} Vanilo ${{ matrix.vanilo }}
+        php: ['8.4', '8.5']
+        laravel: ['12.50', '12.56', '13.0', '13.8']
+    name: PHP ${{ matrix.php }} Laravel ${{ matrix.laravel }}
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -36,7 +26,6 @@ jobs:
           tools: composer:v2
       - name: Lock Package Versions
         run: |
-          composer require "vanilo/framework:${{ matrix.vanilo }}.*" --no-update -v
           composer require "laravel/framework:${{ matrix.laravel }}.*" --no-update -v
       - name: Composer Install
         run: composer install --prefer-dist --no-progress --no-interaction
