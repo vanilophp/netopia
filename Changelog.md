@@ -1,5 +1,13 @@
 # Vanilo Netopia Module Changelog
 
+## Unreleased
+##### 2026-XX-YY
+
+- Added Laravel 13 support
+- Changed the minimum Laravel 12 requirement to 12.50
+- Dropped PHP 8.2 support
+- Dropped Vanilo 4 support
+
 ## 3.2.0
 ##### 2025-12-03
 
