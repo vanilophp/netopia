@@ -22,7 +22,7 @@
         "php": "^8.4",
         "konekt/concord": "^1.18",
         "konekt/enum": "^4.2",
-        "laravel/framework": "^12.50|^13.0",
+        "laravel/framework": "^12.61.1|^13.12",
         "vanilo/contracts": "^6.0",
         "vanilo/payment": "^6.0",
         "ext-dom": "*",
