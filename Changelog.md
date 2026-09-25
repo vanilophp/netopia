@@ -2,8 +2,8 @@
 
 ## 4.x Series
 
-### Unreleased
-#### 2026-XX-YY
+### 4.0.0
+#### 2026-09-25
 
 - Added Vanilo 6 support
 - Dropped Vanilo 5 support

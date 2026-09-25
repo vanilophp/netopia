@@ -21,9 +21,9 @@
 [Enum v4](https://konekt.dev/enum/4.x/upgrade#return-argument-and-attribute-types)
 contains a breaking change, that affects this library.
 
-- Vanilo 4.x only supports Enum v4.
+- Vanilo 4.x and 5.x only support Enum v4.
 - Vanilo 3.x supports both Enum v4 and v3.
-- Vanilo 2.x series only support Enum v3.
+- Vanilo 2.x series only supports Enum v3.
 
 Although the various versions of this library work very well with Vanilo 2.2, 3.x and 4.x,
 it's not possible to support both Enum v3 and v4 at the same time. To satisfy all possible
@@ -40,7 +40,7 @@ requirements we have added a gradual upgrade path, according to the version comp
 | 3.1                   | 8.2 - 8.4 | 4.1+      | 4.2+ | 10.43+ - 11.x                 |
 | 3.2                   | 8.2 - 8.5 | 4.1 - 5.x | 4.2+ | 10.48+, 11.46+, 12.38+        |
 | 3.3                   | 8.3 - 8.5 | 5.x       | 4.2+ | 10.48+, 11.46+, 12.50+, 13.0+ |
-| 4.0                   | 8.4 - 8.5 | 6.x       | 4.2+ | 12.50+, 13.0+                 |
+| 4.0                   | 8.4 - 8.5 | 6.x       | 4.2+ | 12.61+, 13.12+                |
 
 ---
 
