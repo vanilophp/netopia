@@ -2,8 +2,8 @@
 
 ## 4.x Series
 
-### Unreleased
-#### 2026-XX-YY
+### 4.1.0
+#### 2026-10-11
 
 - Fixed `DOMDocument` error when any of the order fields contain special, non-escaped XML characters
 - Changed the minimum Laravel versions to v12.69 and v13.30 (due to CVE-2026-102279)
