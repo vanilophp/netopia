@@ -112,6 +112,29 @@ class RequestFactoryTest extends TestCase
         $this->assertStringEndsWith('/netopia/confirm', $confirmUrl->getValue($request));
     }
 
+    /** @test */
+    public function it_escapes_special_characters_such_as_ampersand_in_xml()
+    {
+        $order = Order::create(['currency' => 'RON', 'amount' => 19.99]);
+        $payment = PaymentFactory::createFromPayable($order, $this->method);
+        $factory = $this->createTestFactory();
+        /** @var NetopiaPaymentRequest $request */
+        $request = $factory->create($payment);
+        $request->setAddress('Baker St. & 221B <Suite 4>');
+        $request->setFirstName('Tom & Jerry');
+        $request->setLastName('Ben & Jerry\'s');
+        $request->setDetails('Rock & Roll');
+
+        $method = new \ReflectionMethod(NetopiaPaymentRequest::class, 'getXml');
+        $method->setAccessible(true);
+        $xml = $method->invoke($request);
+
+        $this->assertStringContainsString('<address>Baker St. &amp; 221B &lt;Suite 4&gt;</address>', $xml);
+        $this->assertStringContainsString('<first_name>Tom &amp; Jerry</first_name>', $xml);
+        $this->assertStringContainsString('<last_name>Ben &amp; Jerry\'s</last_name>', $xml);
+        $this->assertStringContainsString('<details>Rock &amp; Roll</details>', $xml);
+    }
+
     private function createTestFactory(): RequestFactory
     {
         return new RequestFactory(

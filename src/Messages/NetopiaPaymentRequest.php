@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vanilo\Netopia\Messages;
 
 use DOMDocument;
+use DOMElement;
 use Illuminate\Support\Facades\View;
 use Vanilo\Netopia\Concerns\HasFullNetopiaInteraction;
 use Vanilo\Netopia\Exceptions\InvalidNetopiaKeyException;
@@ -194,24 +195,24 @@ class NetopiaPaymentRequest implements PaymentRequest
         $orderNode->setAttribute('timestamp', $this->timestamp);
         $xml->appendChild($orderNode);
 
-        $orderNode->appendChild($xml->createElement('signature', $this->signature));
+        $orderNode->appendChild($this->createTextElement($xml, 'signature', $this->signature));
 
         $invoiceNode = $xml->createElement('invoice');
         $invoiceNode->setAttribute('currency', $this->currency);
         $invoiceNode->setAttribute('amount', number_format($this->amount, 2, '.', ''));
 
-        $invoiceNode->appendChild($xml->createElement('details', $this->details));
+        $invoiceNode->appendChild($this->createTextElement($xml, 'details', $this->details));
 
         $contactNode = $xml->createElement('contact_info');
 
         $billingNode = $xml->createElement('billing');
         $billingNode->setAttribute('type', $this->billingType);
 
-        $billingNode->appendChild($xml->createElement('first_name', $this->firstName ?? ''));
-        $billingNode->appendChild($xml->createElement('last_name', $this->lastName ?? ''));
-        $billingNode->appendChild($xml->createElement('email', $this->email ?? ''));
-        $billingNode->appendChild($xml->createElement('address', $this->address ?? ''));
-        $billingNode->appendChild($xml->createElement('mobile_phone', $this->phone ?? ''));
+        $billingNode->appendChild($this->createTextElement($xml, 'first_name', $this->firstName ?? ''));
+        $billingNode->appendChild($this->createTextElement($xml, 'last_name', $this->lastName ?? ''));
+        $billingNode->appendChild($this->createTextElement($xml, 'email', $this->email ?? ''));
+        $billingNode->appendChild($this->createTextElement($xml, 'address', $this->address ?? ''));
+        $billingNode->appendChild($this->createTextElement($xml, 'mobile_phone', $this->phone ?? ''));
 
         $contactNode->appendChild($billingNode);
         $invoiceNode->appendChild($contactNode);
@@ -219,12 +220,20 @@ class NetopiaPaymentRequest implements PaymentRequest
 
         $urlNode = $xml->createElement('url');
 
-        $urlNode->appendChild($xml->createElement('confirm', $this->confirmUrl));
-        $urlNode->appendChild($xml->createElement('return', $this->returnUrl));
+        $urlNode->appendChild($this->createTextElement($xml, 'confirm', $this->confirmUrl));
+        $urlNode->appendChild($this->createTextElement($xml, 'return', $this->returnUrl));
 
         $orderNode->appendChild($urlNode);
 
         return $xml->saveXML();
+    }
+
+    private function createTextElement(DOMDocument $xml, string $name, ?string $value): DOMElement
+    {
+        $node = $xml->createElement($name);
+        $node->textContent = $value ?? '';
+
+        return $node;
     }
 
     private function getUrl(): string

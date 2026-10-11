@@ -2,6 +2,11 @@
 
 ## 4.x Series
 
+### Unreleased
+#### 2026-XX-YY
+
+- Fixed `DOMDocument` error when any of the order fields contain special, non-escaped XML characters
+
 ### 4.0.0
 #### 2026-09-25
 
