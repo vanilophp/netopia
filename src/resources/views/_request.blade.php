@@ -3,9 +3,10 @@
     <input type="hidden" name="data" value="{{ $data }}"/>
 
     @if($autoRedirect)
-        <p>{{ __('You will be redirected to the secure payment page') }}</p>
+        <p>{{ $redirectMessage ?? __('You will be redirected to the secure payment page') }}</p>
         <p>
             <img src="https://www.euplatesc.ro/plati-online/tdsprocess/images/progress.gif" alt="" title=""
+                 style="height: auto; width: auto;"
                  onload="javascript:document.netopia.submit()">
         </p>
     @endif

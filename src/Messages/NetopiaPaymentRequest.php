@@ -50,6 +50,7 @@ class NetopiaPaymentRequest implements PaymentRequest
                     'autoRedirect' => $options['autoRedirect'] ?? false,
                     'buttonText' => $options['buttonText'] ?? null,
                     'buttonClass' => $options['buttonClass'] ?? null,
+                    'redirectMessage' => $options['redirectMessage'] ?? null,
                 ]
             )
         )->render();
