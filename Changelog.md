@@ -2,8 +2,8 @@
 
 ## 4.x Series
 
-## Unreleased
-#### 2026-XX-YY
+## 4.2.0
+#### 2026-11-06
 
 - Added the `redirectMessage` option/variable to payment request's getHtmlSnippet() method
 - Fixed the styling of the progress image when the host CSS has opinionated styling on every `img` tag
